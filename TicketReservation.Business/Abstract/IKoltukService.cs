@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TicketReservation.Models;
+
+namespace TicketReservation.Business.Abstract
+{
+    public interface IKoltukService
+    {
+        List<Koltuk> GetByUcusId(int ucusId);
+        Koltuk GetById(int koltukId);
+        void Update(Koltuk koltuk);
+
+    }
+}
