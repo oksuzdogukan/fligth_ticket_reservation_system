@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net472\Guna.UI2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,10 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmHome.cs">
+    <Compile Include="Admin\FrmAdminHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmHome.Designer.cs">
+    <Compile Include="Admin\FrmAdminHome.Designer.cs">
+      <DependentUpon>FrmAdminHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FrmFlights.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\FrmFlights.Designer.cs">
+      <DependentUpon>FrmFlights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User\FrmHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\FrmHome.Designer.cs">
       <DependentUpon>FrmHome.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmLogin.cs">
@@ -58,16 +76,40 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSignUp.cs">
+    <Compile Include="User\FrmSearchFlight.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSignUp.Designer.cs">
+    <Compile Include="User\FrmSearchFlight.Designer.cs">
+      <DependentUpon>FrmSearchFlight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User\FrmSignUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\FrmSignUp.Designer.cs">
       <DependentUpon>FrmSignUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User\FrmViewRezervation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\FrmViewRezervation.Designer.cs">
+      <DependentUpon>FrmViewRezervation.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Admin\FrmAdminHome.resx">
+      <DependentUpon>FrmAdminHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\FrmFlights.resx">
+      <DependentUpon>FrmFlights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\FrmHome.resx">
+      <DependentUpon>FrmHome.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\FrmSearchFlight.resx">
+      <DependentUpon>FrmSearchFlight.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,6 +120,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,6 +138,10 @@
     <ProjectReference Include="..\TicketReservation.Business\TicketReservation.Business.csproj">
       <Project>{42d1e93e-b244-4d29-a8bf-736e13fcf0ff}</Project>
       <Name>TicketReservation.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketReservation.Data\TicketReservation.Data.csproj">
+      <Project>{1423b998-409e-402c-965b-94267420fb31}</Project>
+      <Name>TicketReservation.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TicketReservation.Models\TicketReservation.Models.csproj">
       <Project>{351fea06-17cc-403f-9047-9569a0a3966c}</Project>

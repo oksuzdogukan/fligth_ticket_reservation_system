@@ -9,9 +9,9 @@ namespace TicketReservation.Business.Abstract
 {
     public interface IKoltukService
     {
-        List<Koltuk> GetByUcusId(int ucusId);
-        Koltuk GetById(int koltukId);
-        void Update(Koltuk koltuk);
+        List<Koltuk> GetByUcusId(int ucusId); // final
+        Koltuk GetById(int koltukId); // final
+        void Update(Koltuk koltuk); // final
 
     }
 }

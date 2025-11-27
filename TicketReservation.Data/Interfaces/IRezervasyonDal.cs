@@ -11,7 +11,7 @@ namespace TicketReservation.Data.Interfaces
     {
         bool RezervasyonYap(Rezervasyon rezervasyon);
         bool RezervasyonIptalEt(int rezervasyonId);
-        List<Rezervasyon> RezervasyonGoruntule(int musteriId); // musterinin tum rezervasyonlari
+        List<Rezervasyon> RezervasyonGoruntule(); // musterinin tum rezervasyonlari
 
         bool AktifUcusRezervasyonuVarMi(int ucusId);
     }

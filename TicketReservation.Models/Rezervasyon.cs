@@ -16,7 +16,6 @@ namespace TicketReservation.Models
         public RezervasyonDurumu Durum { get; set; }
         public DateTime RezervasyonTarihi { get; set; }
         public decimal Fiyat { get; set; }
-
         public Ucus Ucus { get; set; }
     }
 }

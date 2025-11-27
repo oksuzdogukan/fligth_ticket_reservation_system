@@ -93,7 +93,7 @@ namespace TicketReservation.Data.Concrete
                     }
 
                     // 2.Ucagin Kapasitesini Ogren
-                    string kapasiteQuery = "SELECET Kapsite FROM Ucaklar WHERE UcakId=@ucakId";
+                    string kapasiteQuery = "SELECT Kapasite FROM Ucaklar WHERE UcakId=@ucakId";
                     int ucakKapasitesi;
 
                     using(SqlCommand cmdKapasite = new SqlCommand(kapasiteQuery, conn, transaction))
@@ -104,13 +104,13 @@ namespace TicketReservation.Data.Concrete
 
                     // Koltuk ekleme dongusu
 
-                    string koltukEkleQuery = "INSERT INTO Koltuklar (UcusId, KoltukNo, DoluMu) " +
-                                         "VALUES (@ucusId, @koltukNo, @doluMu)";
-                    for (int i=0; i<=ucakKapasitesi; i++)
+                    string koltukEkleQuery = "INSERT INTO Koltuklar (UcusNo, KoltukNo, DoluMu) " +
+                                         "VALUES (@ucusNo, @koltukNo, @doluMu)";
+                    for (int i=1; i<=ucakKapasitesi; i++)
                     {
                         using(SqlCommand cmdKoltuk = new SqlCommand(koltukEkleQuery, conn, transaction))
                         {
-                            cmdKoltuk.Parameters.AddWithValue("@ucusId", yeniUcusId);
+                            cmdKoltuk.Parameters.AddWithValue("@ucusNo", yeniUcusId);
                             cmdKoltuk.Parameters.AddWithValue("@koltukNo", i);
                             cmdKoltuk.Parameters.AddWithValue("@doluMu", false); // Bos
 
@@ -126,6 +126,7 @@ namespace TicketReservation.Data.Concrete
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    transaction.Rollback();
                     return false;
                 }
             }
@@ -215,9 +216,22 @@ namespace TicketReservation.Data.Concrete
                 try
                 {
                     conn.Open();
-                    string query = "SELECT U.*, Uc.model FROM Ucuslar U " + "INNER JOIN Ucaklar Uc ON U.UcakId = Uc.UcakId";
+                    //string query = "SELECT U.*, Uc.model FROM Ucuslar U " + "INNER JOIN Ucaklar Uc ON U.UcakId = Uc.UcakId";
+                    string query = @"
+                                    SELECT 
+                                        UcusNo,
+                                        KalkisYeri,
+                                        VarisYeri,
+                                        Tarih,
+                                        Saat,
+                                        TemelFiyat,
+                                         U.UcakId AS UcusUcakId,
+                                        Uc.Model AS UcakModel,
+                                        Uc.Kapasite AS UcakKapasite
+                                    FROM Ucuslar U
+                                    INNER JOIN Ucaklar Uc ON U.UcakId = Uc.UcakId";
 
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         SqlDataReader reader = cmd.ExecuteReader();
 
@@ -225,17 +239,19 @@ namespace TicketReservation.Data.Concrete
                         {
                             Ucus ucus = new Ucus
                             {
-                                UcakId = Convert.ToInt32(reader["UcakId"]),
+                                UcusId = Convert.ToInt32(reader["UcusNo"]),
                                 KalkisYeri = reader["KalkisYeri"].ToString(),
                                 VarisYeri = reader["VarisYeri"].ToString(),
                                 Tarih = Convert.ToDateTime(reader["Tarih"]),
                                 Saat = TimeSpan.Parse(reader["Saat"].ToString()),
                                 TemelFiyat = Convert.ToDecimal(reader["TemelFiyat"]),
+                                UcakId = Convert.ToInt32(reader["UcusUcakId"]),
 
                                 Ucak = new Ucak
                                 {
-                                    UcakId = Convert.ToInt32(reader["UcakId"]),
-                                    Model = reader["Model"].ToString()
+                                    UcakId = Convert.ToInt32(reader["UcusUcakId"]),
+                                    Model = reader["UcakModel"].ToString(),
+                                    Kapasite = Convert.ToInt32(reader["UcakKapasite"])
                                 }
                             };
                             ucuslar.Add(ucus);
@@ -244,9 +260,11 @@ namespace TicketReservation.Data.Concrete
                     }
                 }
                 catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return null;
+                { 
+                //{
+                //    Console.WriteLine(ex.Message);
+                //    return null;
+                    throw new Exception("Veri cekilirken hata: " + ex.Message);
                 }
             }
         }

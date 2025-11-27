@@ -24,14 +24,14 @@ namespace TicketReservation.Business.Concrete
             _ucusDal = ucusDal;
         }
 
-        public List<Koltuk> KoltuklariGerit(int ucusId)
+        public List<Koltuk> KoltuklariGetir(int ucusId)
         {
             return _koltukDal.KoltuklariGetir(ucusId); 
         }
 
-        public List<Rezervasyon> RezervasyonGoruntule(int musteriId)
+        public List<Rezervasyon> RezervasyonGoruntule()
         {
-            return _rezervasyonDal.RezervasyonGoruntule(musteriId);
+            return _rezervasyonDal.RezervasyonGoruntule();
         }
 
         public bool RezervasyonIptalEt(int rezervasyonId)

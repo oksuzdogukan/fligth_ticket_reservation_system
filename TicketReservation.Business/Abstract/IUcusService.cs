@@ -10,15 +10,15 @@ namespace TicketReservation.Business.Abstract
     public interface IUcusService
     {
         // Admin islemleri
-        bool UcusEkle(Ucus ucus);
-        bool UcusGuncelle(Ucus ucus);
+        bool UcusEkle(Ucus ucus); 
+        bool UcusGuncelle(Ucus ucus); 
         bool UcusSil(int ucusId);
 
         // Ortak islemler
-        List<Ucus> UcusListele();
-        Ucus UcusGetir(int ucusId);
+        List<Ucus> UcusListele(); 
+        Ucus UcusGetir(int ucusId); // final
 
         // Musteri islemleri
-        List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih);
+        List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih); // final
     }
 }

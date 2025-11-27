@@ -11,10 +11,10 @@ namespace TicketReservation.Business.Abstract
     {
         bool RezervasyonYap(Rezervasyon rezervasyon);
 
-        List<Koltuk> KoltuklariGerit(int ucusId); // Koltuk secme ekrani icin
+        List<Koltuk> KoltuklariGetir(int ucusId); // Koltuk secme ekrani icin 
 
         bool RezervasyonIptalEt(int rezervasyonId);
-        List<Rezervasyon> RezervasyonGoruntule(int musteriId); // musterinin tum rezervasyonlari
+        List<Rezervasyon> RezervasyonGoruntule(); // tum rezervasyonlar
 
     }
 }

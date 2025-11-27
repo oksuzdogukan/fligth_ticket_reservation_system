@@ -165,7 +165,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
-        public List<Rezervasyon> RezervasyonGoruntule(int musteriId)
+        public List<Rezervasyon> RezervasyonGoruntule()
         {
             List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
 
@@ -183,13 +183,11 @@ namespace TicketReservation.Data.Concrete
                             U.Tarih AS UcusTarihi
                         FROM Rezervasyonlar R
                         INNER JOIN Ucuslar U ON R.UcusId = U.UcusId
-                        WHERE R.MusteriId = @musteriId
                         ORDER BY R.RezervasyonTarihi DESC"; // Rezervasyonlar (R) - Ucuslar (U), Ucus bilgilerini JOIN le al
 
 
                     using(SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@musteriId", musteriId);
                         SqlDataReader reader = cmd.ExecuteReader(); // okuyucu
 
                         while (reader.Read())

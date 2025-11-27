@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace TicketReservation.UI
 {
-    public partial class FrmLogin : Form
+    public partial class FrmSearchFlight : Form
     {
-        public FrmLogin()
+        public FrmSearchFlight()
         {
             InitializeComponent();
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
