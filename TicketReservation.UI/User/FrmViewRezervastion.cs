@@ -16,5 +16,10 @@ namespace TicketReservation.UI
         {
             InitializeComponent();
         }
+
+        private void FrmViewRezervastion_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

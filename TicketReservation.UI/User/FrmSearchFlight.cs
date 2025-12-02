@@ -90,7 +90,9 @@ namespace TicketReservation.UI
                 {
                     UcusId = _secilenUcusId,
                     KoltukNo = _secilenKoltukNo,
-                    MusteriId = 1 // suanda musteri olmadigi icin el ile olusturulan 
+                    MusteriId = 1, // suanda musteri olmadigi icin el ile olusturulan deger
+                    
+                    // buraya diger veriler eklenecek
                 };
 
                 bool basarili = _rezervasyonService.RezervasyonYap(rezervasyon);
