@@ -11,7 +11,6 @@ namespace TicketReservation.Data.Interfaces
     {
         bool RezervasyonYap(Rezervasyon rezervasyon);
         bool RezervasyonIptalEt(int rezervasyonId);
-
         bool AktifUcusRezervasyonuVarMi(int ucusId);
     }
 }

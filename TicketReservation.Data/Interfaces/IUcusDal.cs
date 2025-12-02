@@ -13,13 +13,12 @@ namespace TicketReservation.Data.Interfaces
         bool UcusEkle(Ucus ucus);
         bool UcusGuncelle(Ucus ucus);
         bool UcusSil(int ucusId);
-
-        // Ortak islemler
+        Ucus UcusGetir(int ucusId);
         List<Ucus> UcusListele();
+        
         
 
         // Musteri islemleri
         List<Ucus> UcusAra(string kalkis, string varis);
-        Ucus UcusGetir(int ucusId);
     }
 }
