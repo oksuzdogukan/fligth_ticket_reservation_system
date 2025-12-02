@@ -11,55 +11,6 @@ namespace TicketReservation.Data.Concrete
 {
     public class UcusDal : IUcusDal
     {
-        public List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih)
-        {
-            List<Ucus> ucuslar = new List<Ucus>();
-
-            using(SqlConnection conn = Database.GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-
-                    string query = "SELECT U.*, Uc.Model FROM Ucuslar U " +/*
-                                   "INNER JOIN Ucaklar Uc ON U.UcakId = Uc.UcakId " +*/
-                                   "WHERE U.KalkisYeri = @kalkis AND U.VarisYeri = @varis AND U.Tarih = @tarih";
-                    
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@kalkis", kalkis);
-                        cmd.Parameters.AddWithValue("@varis", varis);
-                        cmd.Parameters.AddWithValue("@tarih", tarih.Date);
-
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        while (reader.Read())
-                        {
-                            Ucus ucus = new Ucus
-                            {
-                                UcusId = Convert.ToInt32(reader["UcusNo"]),
-                                KalkisYeri = reader["KalkisYeri"].ToString(),
-                                VarisYeri = reader["VarisYeri"].ToString(),
-                                Tarih = Convert.ToDateTime(reader["Tarih"]),
-                                Saat = TimeSpan.Parse(reader["Saat"].ToString()),
-                                TemelFiyat = Convert.ToDecimal(reader["TemelFiyat"]),
-                                UcakId = Convert.ToInt32(reader["UcakId"]),
-                            };
-                            ucuslar.Add(ucus);
-
-                        }
-                        return ucuslar;
-                    }
-
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
-            }
-        }
-
         public bool UcusEkle(Ucus ucus)
         {
             using(SqlConnection conn = Database.GetConnection())
@@ -132,48 +83,53 @@ namespace TicketReservation.Data.Concrete
             }
 
         }
-
-        public Ucus UcusGetir(int ucusId)
+        
+        public bool UcusSil(int ucusId)
         {
+            // eger silmem isteniler ucusa ait rezeryazson varsa ucusun silinmemesi gerekir
             using(SqlConnection conn = Database.GetConnection())
             {
+                conn.Open();
+
+                // Transaction : islemlerin hepsi basarılı olursa kaydet, biri bile hata verirse hepsini iptal et
+                SqlTransaction transaction = conn.BeginTransaction(); // transaction i baslat
+
                 try
                 {
-                    conn.Open();
-                    string query = "SELECT * FROM Ucuslar WHERE UcusNo = @ucusNo";
+                    // 1. once koltuklari sil
 
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
+                    string koltukQuery = "DELETE FROM Koltuklar WHERE UcusNo=@ucusNo";
+                    using(SqlCommand koltukCmd = new SqlCommand(koltukQuery, conn, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@ucusNo", ucusId);
+                        koltukCmd.Parameters.AddWithValue("@ucusNo", ucusId);
 
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        if (reader.Read())
-                        {
-                            Ucus ucus = new Ucus
-                            {
-                                UcusId = Convert.ToInt32(reader["UcusNo"]),
-                                KalkisYeri = reader["KalkisYeri"].ToString(),
-                                VarisYeri = reader["VarisYeri"].ToString(),
-                                Tarih = Convert.ToDateTime(reader["Tarih"]),
-                                Saat = TimeSpan.Parse(reader["Saat"].ToString()),
-                                TemelFiyat = Convert.ToDecimal(reader["TemelFiyat"]),
-                                UcakId = Convert.ToInt32(reader["UcakId"])
-                            };
-                            return ucus;
-                        }
-                        return null; // Ucus bulunmadi
+                        koltukCmd.ExecuteNonQuery();
                     }
+
+                    // 2. Ucusu sil
+                    string ucusQuery = "DELETE FROM Ucuslar WHERE UcusNo=@ucusNo";
+
+                    using(SqlCommand ucusCmd = new SqlCommand(ucusQuery, conn, transaction))
+                    {
+                        ucusCmd.Parameters.AddWithValue("@ucusNo", ucusId);
+
+                        ucusCmd.ExecuteNonQuery();
+                    }
+
+                    // hersey basariliysa transaction i onayla (Commit)
+                    transaction.Commit();
+                    return true;
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    return null;
-
+                    transaction.Rollback();
+                    return false;
                 }
             }
-        }
 
+        }
+        
         public bool UcusGuncelle(Ucus ucus)
         {
             using(SqlConnection conn = Database.GetConnection())
@@ -183,11 +139,11 @@ namespace TicketReservation.Data.Concrete
                     conn.Open();
                     string query = "UPDATE Ucuslar SET KalkisYeri = @kalkis, VarisYeri = @varis, " +
                                    "Tarih = @tarih, Saat = @saat, TemelFiyat = @fiyat, UcakId = @ucakId " +
-                                   "WHERE UcusId = @ucusId";
+                                   "WHERE UcusNo = @ucusNo";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@ucusId", ucus.UcusId); // Hangi ucusun guncellenecegi
+                        cmd.Parameters.AddWithValue("@ucusNo", ucus.UcusId); // Hangi ucusun guncellenecegi
                         cmd.Parameters.AddWithValue("@kalkis", ucus.KalkisYeri);
                         cmd.Parameters.AddWithValue("@varis", ucus.VarisYeri);
                         cmd.Parameters.AddWithValue("@tarih", ucus.Tarih.Date);
@@ -268,32 +224,98 @@ namespace TicketReservation.Data.Concrete
                 }
             }
         }
-
-        public bool UcusSil(int ucusId)
+        
+        public List<Ucus> UcusAra(string kalkis, string varis)
         {
-            // eger silmem isteniler ucusa ait rezeryazson varsa ucusun silinmemesi gerekir
+            List<Ucus> ucuslar = new List<Ucus>();
+
             using(SqlConnection conn = Database.GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    string query = "DELETE FROM Ucuslar WHERE UcusNo=@ucusNo";
+
+                    string query = @"SELECT * FROM Ucuslar
+                                    WHERE KalkisYeri = @kalkis
+                                    AND VarisYeri = @varis";
+
+                    using(SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@kalkis", kalkis);
+                        cmd.Parameters.AddWithValue("@varis", varis);
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Ucus ucus = new Ucus
+                            {
+                                UcusId = Convert.ToInt32(reader["UcusNo"]),
+                                KalkisYeri = reader["KalkisYeri"].ToString(),
+                                VarisYeri = reader["VarisYeri"].ToString(),
+                                Tarih = Convert.ToDateTime(reader["Tarih"]),
+                                Saat = TimeSpan.Parse(reader["Saat"].ToString()),
+                                TemelFiyat = Convert.ToDecimal(reader["TemelFiyat"]),
+                                UcakId = Convert.ToInt32(reader["UcakId"]),
+                            };
+                            ucuslar.Add(ucus);
+
+                        }
+                        return ucuslar;
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
+        
+
+
+        // final
+        public Ucus UcusGetir(int ucusId)
+        {
+            using(SqlConnection conn = Database.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT * FROM Ucuslar WHERE UcusNo = @ucusNo";
 
                     using(SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ucusNo", ucusId);
 
-                        int affectedRows = cmd.ExecuteNonQuery();
-                        return affectedRows > 0;
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            Ucus ucus = new Ucus
+                            {
+                                UcusId = Convert.ToInt32(reader["UcusNo"]),
+                                KalkisYeri = reader["KalkisYeri"].ToString(),
+                                VarisYeri = reader["VarisYeri"].ToString(),
+                                Tarih = Convert.ToDateTime(reader["Tarih"]),
+                                Saat = TimeSpan.Parse(reader["Saat"].ToString()),
+                                TemelFiyat = Convert.ToDecimal(reader["TemelFiyat"]),
+                                UcakId = Convert.ToInt32(reader["UcakId"])
+                            };
+                            return ucus;
+                        }
+                        return null; // Ucus bulunmadi
                     }
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    return false;
+                    return null;
+
                 }
             }
-
         }
+
     }
 }

@@ -45,7 +45,7 @@ namespace TicketReservation.Data.Concrete
 
                     // 2 koltuk dolu mu 
 
-                    string queryKoltuk = "UPDATE Koltuklar SET DoluMu = 1" + "WHERE UcusId = @ucusId AND KoltukNo = @koltukNo AND DoluMu = 0";
+                    string queryKoltuk = "UPDATE Koltuklar SET DoluMu = 1" + "WHERE UcusNo = @ucusId AND KoltukNo = @koltukNo AND DoluMu = 0";
 
                     using(SqlCommand cmdKoltuk = new SqlCommand(queryKoltuk, conn, transaction))
                     {
@@ -165,6 +165,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
+        // final
         public List<Rezervasyon> RezervasyonGoruntule()
         {
             List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
@@ -208,7 +209,7 @@ namespace TicketReservation.Data.Concrete
                                     UcakId = Convert.ToInt32(reader["UcusId"]),
                                     KalkisYeri = reader["KalkisYeri"].ToString(),
                                     VarisYeri = reader["VarisYeri"].ToString(),
-                                    Tarih = Convert.ToDateTime(reader["Tarih"])
+                                    Tarih = Convert.ToDateTime(reader["UcusTarihi"])
                                 }
                             };
 
@@ -228,6 +229,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
+        // final
         public bool AktifUcusRezervasyonuVarMi(int ucusId)
         {
             using(SqlConnection conn = Database.GetConnection())
@@ -235,7 +237,7 @@ namespace TicketReservation.Data.Concrete
                 try
                 {
                     conn.Open();
-                    string query = "SELECET COUNT(*) FROM Rezervasyonlar WHERE UcusId=@ucusId AND Durum='Aktif'";
+                    string query = "SELECT COUNT(*) FROM Rezervasyonlar WHERE UcusId=@ucusId AND Durum='Aktif'";
 
                     using(SqlCommand cmd = new SqlCommand(query, conn))
                     {

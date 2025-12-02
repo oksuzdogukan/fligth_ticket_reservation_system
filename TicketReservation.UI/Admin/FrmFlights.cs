@@ -26,6 +26,7 @@ namespace TicketReservation.UI.Admin
             _ucusService = ucusService;
         }
 
+        // form yuklendiginde verileri listele
         private void FrmFlights_Load(object sender, EventArgs e)
         {
             dataGridViewFlights.DataSource = _ucusService.UcusListele();
@@ -35,6 +36,7 @@ namespace TicketReservation.UI.Admin
                 dataGridViewFlights.Columns["Ucak"].Visible = false;
         }
 
+        // secilen satirin verilerini doldurma
         private void dataGridViewFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
@@ -68,6 +70,7 @@ namespace TicketReservation.UI.Admin
 
         }
 
+        // ucus ekleme butonu
         private void btnAddFlight_Click(object sender, EventArgs e)
         {
             try
@@ -100,6 +103,71 @@ namespace TicketReservation.UI.Admin
                 MessageBox.Show("hata:" + ex.Message);
             }
             
+        }
+
+        // ucus silme butonu
+        private void btnDeleteFlight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                DataGridViewRow selectedRow = dataGridViewFlights.SelectedRows[0];
+                int ucusId = Convert.ToInt32(selectedRow.Cells["UcusNo"].Value.ToString());
+
+                bool basarili = _ucusService.UcusSil(ucusId);
+
+                if (basarili)
+                {
+                    MessageBox.Show("Ucus Silindi");
+                    dataGridViewFlights.DataSource = _ucusService.UcusListele();
+                }
+                else
+                {
+                    MessageBox.Show("Ucus Silinirken Hata");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
+
+            }
+
+            
+        }
+
+        // ucus guncelleme butonu
+        private void btnUpdateFlight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Ucus ucus = new Ucus
+                {
+                    // girilen yeni ucus bilgilerini al
+                    UcusId = Convert.ToInt32(txtUcusNo.Text),
+                    KalkisYeri = txtKalkisYeri.Text,
+                    VarisYeri = txtVarisYeri.Text,
+                    Tarih = txtTarih.Value.Date,
+                    Saat = txtSaat.Value.TimeOfDay,
+                    TemelFiyat = Convert.ToDecimal(txtTemelFiyat.Text),
+                    UcakId = Convert.ToInt32(txtUcakId.Text)
+                };
+                // ucusu ekle
+                bool basarili = _ucusService.UcusGuncelle(ucus);
+
+                if (basarili)
+                {
+                    dataGridViewFlights.DataSource = null;
+                    dataGridViewFlights.DataSource = _ucusService.UcusListele();
+                }
+                else
+                {
+                    MessageBox.Show("Ucus Guncellenirken Sorun Olustu");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("hata:" + ex.Message);
+            }
         }
     }
 }

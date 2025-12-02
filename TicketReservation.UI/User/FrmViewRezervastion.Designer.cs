@@ -1,6 +1,6 @@
 ﻿namespace TicketReservation.UI
 {
-    partial class FrmViewRezervation
+    partial class FrmViewRezervastion
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FrmSearchFlight
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FrmViewRezervation";
+            this.ClientSize = new System.Drawing.Size(1280, 684);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "FrmSearchFlight";
+            this.Text = "FrmSearchFlight";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

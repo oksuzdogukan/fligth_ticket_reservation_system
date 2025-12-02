@@ -61,12 +61,12 @@
             this.Saat,
             this.TemelFiyat,
             this.UcakId});
-            this.dataGridViewFlights.Location = new System.Drawing.Point(340, 38);
+            this.dataGridViewFlights.Location = new System.Drawing.Point(203, 39);
             this.dataGridViewFlights.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewFlights.Name = "dataGridViewFlights";
             this.dataGridViewFlights.RowHeadersWidth = 51;
             this.dataGridViewFlights.RowTemplate.Height = 24;
-            this.dataGridViewFlights.Size = new System.Drawing.Size(754, 319);
+            this.dataGridViewFlights.Size = new System.Drawing.Size(753, 319);
             this.dataGridViewFlights.TabIndex = 0;
             this.dataGridViewFlights.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewFlights_CellMouseClick);
             // 
@@ -128,7 +128,7 @@
             this.btnAddFlight.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnAddFlight.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddFlight.ForeColor = System.Drawing.Color.White;
-            this.btnAddFlight.Location = new System.Drawing.Point(370, 467);
+            this.btnAddFlight.Location = new System.Drawing.Point(233, 468);
             this.btnAddFlight.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddFlight.Name = "btnAddFlight";
             this.btnAddFlight.Size = new System.Drawing.Size(135, 37);
@@ -145,12 +145,13 @@
             this.btnDeleteFlight.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnDeleteFlight.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnDeleteFlight.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteFlight.Location = new System.Drawing.Point(636, 467);
+            this.btnDeleteFlight.Location = new System.Drawing.Point(499, 468);
             this.btnDeleteFlight.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteFlight.Name = "btnDeleteFlight";
             this.btnDeleteFlight.Size = new System.Drawing.Size(135, 37);
             this.btnDeleteFlight.TabIndex = 2;
             this.btnDeleteFlight.Text = "Ucusu Sil";
+            this.btnDeleteFlight.Click += new System.EventHandler(this.btnDeleteFlight_Click);
             // 
             // btnUpdateFlight
             // 
@@ -161,12 +162,13 @@
             this.btnUpdateFlight.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnUpdateFlight.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnUpdateFlight.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateFlight.Location = new System.Drawing.Point(893, 467);
+            this.btnUpdateFlight.Location = new System.Drawing.Point(756, 468);
             this.btnUpdateFlight.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdateFlight.Name = "btnUpdateFlight";
             this.btnUpdateFlight.Size = new System.Drawing.Size(135, 37);
             this.btnUpdateFlight.TabIndex = 3;
             this.btnUpdateFlight.Text = "Ucusu Guncelle";
+            this.btnUpdateFlight.Click += new System.EventHandler(this.btnUpdateFlight_Click);
             // 
             // txtUcusNo
             // 
@@ -180,7 +182,7 @@
             this.txtUcusNo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtUcusNo.ForeColor = System.Drawing.Color.Black;
             this.txtUcusNo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUcusNo.Location = new System.Drawing.Point(423, 381);
+            this.txtUcusNo.Location = new System.Drawing.Point(286, 382);
             this.txtUcusNo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtUcusNo.Name = "txtUcusNo";
             this.txtUcusNo.PlaceholderForeColor = System.Drawing.Color.Black;
@@ -202,7 +204,7 @@
             this.txtTemelFiyat.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTemelFiyat.ForeColor = System.Drawing.Color.Black;
             this.txtTemelFiyat.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTemelFiyat.Location = new System.Drawing.Point(756, 421);
+            this.txtTemelFiyat.Location = new System.Drawing.Point(619, 422);
             this.txtTemelFiyat.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtTemelFiyat.Name = "txtTemelFiyat";
             this.txtTemelFiyat.PlaceholderForeColor = System.Drawing.Color.Black;
@@ -223,7 +225,7 @@
             this.txtKalkisYeri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtKalkisYeri.ForeColor = System.Drawing.Color.Black;
             this.txtKalkisYeri.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtKalkisYeri.Location = new System.Drawing.Point(636, 381);
+            this.txtKalkisYeri.Location = new System.Drawing.Point(499, 382);
             this.txtKalkisYeri.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtKalkisYeri.Name = "txtKalkisYeri";
             this.txtKalkisYeri.PlaceholderForeColor = System.Drawing.Color.Black;
@@ -244,7 +246,7 @@
             this.txtVarisYeri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtVarisYeri.ForeColor = System.Drawing.Color.Black;
             this.txtVarisYeri.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtVarisYeri.Location = new System.Drawing.Point(810, 381);
+            this.txtVarisYeri.Location = new System.Drawing.Point(673, 382);
             this.txtVarisYeri.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtVarisYeri.Name = "txtVarisYeri";
             this.txtVarisYeri.PlaceholderForeColor = System.Drawing.Color.Black;
@@ -259,11 +261,11 @@
             this.txtTarih.FillColor = System.Drawing.Color.White;
             this.txtTarih.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTarih.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.txtTarih.Location = new System.Drawing.Point(369, 421);
+            this.txtTarih.Location = new System.Drawing.Point(232, 426);
             this.txtTarih.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.txtTarih.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.txtTarih.Name = "txtTarih";
-            this.txtTarih.Size = new System.Drawing.Size(189, 24);
+            this.txtTarih.Size = new System.Drawing.Size(189, 20);
             this.txtTarih.TabIndex = 11;
             this.txtTarih.Value = new System.DateTime(2025, 11, 29, 14, 41, 22, 330);
             // 
@@ -279,7 +281,7 @@
             this.txtUcakId.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtUcakId.ForeColor = System.Drawing.Color.Black;
             this.txtUcakId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUcakId.Location = new System.Drawing.Point(905, 421);
+            this.txtUcakId.Location = new System.Drawing.Point(768, 422);
             this.txtUcakId.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtUcakId.Name = "txtUcakId";
             this.txtUcakId.PlaceholderForeColor = System.Drawing.Color.Black;
@@ -291,7 +293,7 @@
             // txtSaat
             // 
             this.txtSaat.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.txtSaat.Location = new System.Drawing.Point(576, 425);
+            this.txtSaat.Location = new System.Drawing.Point(439, 426);
             this.txtSaat.Name = "txtSaat";
             this.txtSaat.Size = new System.Drawing.Size(155, 20);
             this.txtSaat.TabIndex = 13;
@@ -300,7 +302,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1371, 553);
+            this.ClientSize = new System.Drawing.Size(1184, 541);
             this.Controls.Add(this.txtSaat);
             this.Controls.Add(this.txtUcakId);
             this.Controls.Add(this.txtTarih);

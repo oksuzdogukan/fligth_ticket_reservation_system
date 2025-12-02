@@ -12,6 +12,7 @@ namespace TicketReservation.Data.Concrete
 {
     public class KullaniciDal : IKullaniciDal
     {
+        // final
         public Kullanici GirisYap(string email, string sifre)
         {
             using (SqlConnection conn = Database.GetConnection())
@@ -82,6 +83,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
+        // final
         public bool MusteriKayitOl(Musteri musteri)
         {
             using (SqlConnection conn = Database.GetConnection())

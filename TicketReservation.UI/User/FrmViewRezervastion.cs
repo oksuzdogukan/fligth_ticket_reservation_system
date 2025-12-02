@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TicketReservation.UI
 {
-    public partial class FrmViewRezervation : Form
+    public partial class FrmViewRezervastion : Form
     {
-        public FrmViewRezervation()
+        public FrmViewRezervastion()
         {
             InitializeComponent();
         }

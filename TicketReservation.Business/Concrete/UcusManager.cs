@@ -75,8 +75,7 @@ namespace TicketReservation.Business.Concrete
 
             return _ucusDal.UcusSil(ucusId);
         }
-
-
+        
 
         // ORTAK ISLEMLERI
         public List<Ucus> UcusListele()
@@ -84,27 +83,10 @@ namespace TicketReservation.Business.Concrete
             return _ucusDal.UcusListele();
         }
 
+        //final
         public Ucus UcusGetir(int ucusId)
         {
             return _ucusDal.UcusGetir(ucusId);
-        }
-
-
-
-        // MUSTERI ISLEMLERI
-        public List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih)
-        {
-            if(string.IsNullOrEmpty(kalkis) || string.IsNullOrEmpty(varis))
-            {
-                throw new Exception("Kalkis ve Varis yeri seciniz");
-            }
-
-            if(tarih < DateTime.Today)
-            {
-                throw new Exception("Gecmis tarihli ucus aranamaz");
-            }
-
-            return _ucusDal.UcusAra(kalkis, varis, tarih);
         }
     }
 }

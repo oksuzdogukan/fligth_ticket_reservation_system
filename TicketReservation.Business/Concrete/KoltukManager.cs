@@ -18,16 +18,18 @@ namespace TicketReservation.Business.Concrete
             _koltukDal = koltukDal;
         }
 
+        public List<Koltuk> GetByUcusId(int ucusId)
+        {
+            return _koltukDal.KoltuklariGetir(ucusId);
+        }
+
+        // final
         public Koltuk GetById(int koltukId)
         {
             throw new NotImplementedException();
         }
-
-        public List<Koltuk> GetByUcusId(int ucusId)
-        {
-            throw new NotImplementedException();
-        }
-
+    
+        //final
         public void Update(Koltuk koltuk)
         {
             _koltukDal.KoltukDurumuGuncelle(koltuk.UcusId, koltuk.KoltukNo, koltuk.DoluMu);

@@ -29,6 +29,7 @@ namespace TicketReservation.Business.Concrete
             return _koltukDal.KoltuklariGetir(ucusId); 
         }
 
+        // final
         public List<Rezervasyon> RezervasyonGoruntule()
         {
             return _rezervasyonDal.RezervasyonGoruntule();
@@ -75,12 +76,28 @@ namespace TicketReservation.Business.Concrete
 
         }
 
+        public List<Ucus> MusteriUcusAra(string kalkis, string varis)
+        {
+            List<Ucus> bulunanUcuslar = _ucusDal.UcusAra(kalkis, varis);
+
+            foreach (var ucus in bulunanUcuslar)
+            {
+                List<Koltuk> koltuklar = _koltukDal.KoltuklariGetir(ucus.UcusId);
+
+                decimal hesaplananFiyat = DinamikFiyatHesapla(ucus, koltuklar);
+
+                ucus.SatisFiyati = hesaplananFiyat;
+            }
+
+            return bulunanUcuslar;
+        }
+
         private decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar)
         {
             decimal temelFiyat = ucus.TemelFiyat;
 
             // KURAL: DOLULUK ORANINA GORE FIYAT HESAPLA
-            int toplamKoltuk = koltuklar.Count;
+            int toplamKoltuk = koltuklar.Count();
             int doluKoltuk = koltuklar.Count(k => k.DoluMu == true);
             double dolulukOrani = (double)doluKoltuk / toplamKoltuk;
 

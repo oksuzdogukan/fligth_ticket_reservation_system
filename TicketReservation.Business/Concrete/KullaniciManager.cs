@@ -20,6 +20,7 @@ namespace TicketReservation.Business.Concrete
             _kullaniciDal = kullaniciDal;
         }
 
+        // final
         public Kullanici GirisYap(string email, string sifre)
         {
             if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
@@ -30,6 +31,7 @@ namespace TicketReservation.Business.Concrete
             return _kullaniciDal.GirisYap(email, sifre); // data katmanina gonder
         }
 
+        // final
         public bool MusteriKayitOl(Musteri musteri)
         {
             if(string.IsNullOrEmpty(musteri.Ad)  || string.IsNullOrEmpty(musteri.Soyad))
@@ -56,7 +58,7 @@ namespace TicketReservation.Business.Concrete
             return _kullaniciDal.MusteriKayitOl(musteri); // data katmanina gonder
         }
 
-
+        // final
         private bool EmailFormatiDogrulama(string email)
         {
             if (string.IsNullOrEmpty(email)) return false;

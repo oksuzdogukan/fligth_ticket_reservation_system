@@ -15,7 +15,8 @@ namespace TicketReservation.Models
         public DateTime Tarih { get; set; }
         public TimeSpan Saat { get; set; }
         public decimal TemelFiyat { get; set; }
-
         public Ucak Ucak { get; set; }
+
+        public decimal SatisFiyati { get; set; } // DB icin degil, ekranda hesaplanan fiyati gostermek icin
     }
 }

@@ -11,6 +11,8 @@ namespace TicketReservation.Business.Abstract
     {
         bool RezervasyonYap(Rezervasyon rezervasyon);
 
+        List<Ucus> MusteriUcusAra(string kalkis, string varis);
+
         List<Koltuk> KoltuklariGetir(int ucusId); // Koltuk secme ekrani icin 
 
         bool RezervasyonIptalEt(int rezervasyonId);

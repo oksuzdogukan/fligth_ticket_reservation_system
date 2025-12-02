@@ -18,7 +18,5 @@ namespace TicketReservation.Business.Abstract
         List<Ucus> UcusListele(); 
         Ucus UcusGetir(int ucusId); // final
 
-        // Musteri islemleri
-        List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih); // final
     }
 }

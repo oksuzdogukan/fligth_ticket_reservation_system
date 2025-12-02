@@ -19,6 +19,6 @@ namespace TicketReservation.Data.Interfaces
         Ucus UcusGetir(int ucusId);
 
         // Musteri islemleri
-        List<Ucus> UcusAra(string kalkis, string varis, DateTime tarih);
+        List<Ucus> UcusAra(string kalkis, string varis);
     }
 }
