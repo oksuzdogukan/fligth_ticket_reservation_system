@@ -272,20 +272,17 @@ namespace TicketReservation.Data.Concrete
                 }
             }
         }
-        
 
-
-        // final
         public Ucus UcusGetir(int ucusId)
         {
-            using(SqlConnection conn = Database.GetConnection())
+            using (SqlConnection conn = Database.GetConnection())
             {
                 try
                 {
                     conn.Open();
                     string query = "SELECT * FROM Ucuslar WHERE UcusNo = @ucusNo";
 
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ucusNo", ucusId);
 
@@ -308,7 +305,7 @@ namespace TicketReservation.Data.Concrete
                         return null; // Ucus bulunmadi
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     return null;

@@ -165,81 +165,16 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
-        // final
-        public List<Rezervasyon> RezervasyonGoruntule()
-        {
-            List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
-
-            using(SqlConnection conn = Database.GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-
-                    string query = @"
-                        SELECT 
-                            R.*, 
-                            U.KalkisYeri, 
-                            U.VarisYeri, 
-                            U.Tarih AS UcusTarihi
-                        FROM Rezervasyonlar R
-                        INNER JOIN Ucuslar U ON R.UcusId = U.UcusId
-                        ORDER BY R.RezervasyonTarihi DESC"; // Rezervasyonlar (R) - Ucuslar (U), Ucus bilgilerini JOIN le al
-
-
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        SqlDataReader reader = cmd.ExecuteReader(); // okuyucu
-
-                        while (reader.Read())
-                        {
-                            Rezervasyon rez = new Rezervasyon
-                            {
-                                RezervasyonId = Convert.ToInt32(reader["RezervasyonId"]),
-                                MusteriId = Convert.ToInt32(reader["MusteriId"]),
-                                UcusId = Convert.ToInt32(reader["UcusId"]),
-                                KoltukNo = Convert.ToInt32(reader["KoltukNo"]),
-                                RezervasyonTarihi = Convert.ToDateTime(reader["RezervasyonTarihi"]),
-                                Fiyat = Convert.ToDecimal(reader["Fiyat"]),
-                                Durum = (RezervasyonDurumu)Enum.Parse(typeof(RezervasyonDurumu), reader["Durum"].ToString()),
-
-
-                                Ucus = new Ucus
-                                {
-                                    UcakId = Convert.ToInt32(reader["UcusId"]),
-                                    KalkisYeri = reader["KalkisYeri"].ToString(),
-                                    VarisYeri = reader["VarisYeri"].ToString(),
-                                    Tarih = Convert.ToDateTime(reader["UcusTarihi"])
-                                }
-                            };
-
-                            rezervasyonlar.Add(rez); // ekle
-                        }
-                        return rezervasyonlar; // rezervasyonlari don
-                    }
-
-
-
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
-            }
-        }
-
-        // final
         public bool AktifUcusRezervasyonuVarMi(int ucusId)
         {
-            using(SqlConnection conn = Database.GetConnection())
+            using (SqlConnection conn = Database.GetConnection())
             {
                 try
                 {
                     conn.Open();
                     string query = "SELECT COUNT(*) FROM Rezervasyonlar WHERE UcusId=@ucusId AND Durum='Aktif'";
 
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ucusId", ucusId);
 

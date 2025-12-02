@@ -29,11 +29,7 @@ namespace TicketReservation.Business.Concrete
             return _koltukDal.KoltuklariGetir(ucusId); 
         }
 
-        // final
-        public List<Rezervasyon> RezervasyonGoruntule()
-        {
-            return _rezervasyonDal.RezervasyonGoruntule();
-        }
+       
 
         public bool RezervasyonIptalEt(int rezervasyonId)
         {

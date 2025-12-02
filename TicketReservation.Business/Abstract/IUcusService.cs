@@ -15,8 +15,7 @@ namespace TicketReservation.Business.Abstract
         bool UcusSil(int ucusId);
 
         // Ortak islemler
-        List<Ucus> UcusListele(); 
-        Ucus UcusGetir(int ucusId); // final
-
+        List<Ucus> UcusListele();
+        Ucus UcusGetir(int ucusId);
     }
 }

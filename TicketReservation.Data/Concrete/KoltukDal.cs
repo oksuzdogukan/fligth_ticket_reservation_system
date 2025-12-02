@@ -50,37 +50,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
-        // final
-        public bool KoltukDurumuGuncelle(int ucusId, int koltukNo, bool doluMu)
-        {
-            // Rezervasyon yapildiginda koltugu 'Dolu' (true)
-            // Rezervasyon iptal edildiginde koltugu 'Bos' (false) yapar
-
-            using (SqlConnection conn = Database.GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "UPDATE Koltuklar SET DoluMu=@doluMu" + "WHERE UcusId=@ucusId AND KoltukNo=@koltukNo";
-
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@doluMu", doluMu);
-                        cmd.Parameters.AddWithValue("@ucusId", ucusId);
-                        cmd.Parameters.AddWithValue("@koltukNo", koltukNo);
-
-                        int affectedRows = cmd.ExecuteNonQuery();
-                        return affectedRows > 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
-            }
-        }
+        
 
     }
 }

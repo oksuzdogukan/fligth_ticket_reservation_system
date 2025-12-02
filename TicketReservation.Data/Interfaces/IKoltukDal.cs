@@ -11,6 +11,5 @@ namespace TicketReservation.Data.Interfaces
     {
         List<Koltuk> KoltuklariGetir(int ucusId);
 
-        bool KoltukDurumuGuncelle(int ucusId, int koltukNo, bool doluMu);
     }
 }

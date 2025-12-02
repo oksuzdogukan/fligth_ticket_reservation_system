@@ -10,7 +10,6 @@ namespace TicketReservation.Business.Abstract
     public interface IKullaniciService
     {
 
-        Kullanici GirisYap(string email, string sifre); // final
-        bool MusteriKayitOl(Musteri musteri); // final
+
     }
 }

@@ -29,8 +29,8 @@ namespace TicketReservation.UI
             var koltukManager = new KoltukManager(koltukDal);
 
 
-            Application.Run(new FrmFlights(ucusManager));
-            //Application.Run(new FrmSearchFlight(ucusManager, rezervasyonManager, koltukManager));
+            //Application.Run(new FrmFlights(ucusManager));
+            Application.Run(new FrmSearchFlight(ucusManager, rezervasyonManager, koltukManager));
 
 
 

@@ -16,7 +16,6 @@ namespace TicketReservation.Business.Abstract
         List<Koltuk> KoltuklariGetir(int ucusId); // Koltuk secme ekrani icin 
 
         bool RezervasyonIptalEt(int rezervasyonId);
-        List<Rezervasyon> RezervasyonGoruntule(); // tum rezervasyonlar
 
     }
 }

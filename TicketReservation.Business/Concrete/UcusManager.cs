@@ -83,7 +83,6 @@ namespace TicketReservation.Business.Concrete
             return _ucusDal.UcusListele();
         }
 
-        //final
         public Ucus UcusGetir(int ucusId)
         {
             return _ucusDal.UcusGetir(ucusId);
