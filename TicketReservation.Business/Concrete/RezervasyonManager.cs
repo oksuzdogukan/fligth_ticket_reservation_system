@@ -29,7 +29,6 @@ namespace TicketReservation.Business.Concrete
             return _koltukDal.KoltuklariGetir(ucusId); 
         }
 
-       
 
         public bool RezervasyonIptalEt(int rezervasyonId)
         {

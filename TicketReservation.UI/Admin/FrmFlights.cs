@@ -32,8 +32,8 @@ namespace TicketReservation.UI.Admin
             dataGridViewFlights.DataSource = _ucusService.UcusListele();
 
             // dataGridView da Ucak column gorunmesin
-            if (dataGridViewFlights.Columns.Contains("Ucak"))
-                dataGridViewFlights.Columns["Ucak"].Visible = false;
+            dataGridViewFlights.Columns["Ucak"].Visible = false;
+            dataGridViewFlights.Columns["SatisFiyati"].Visible = false;
         }
 
         // secilen satirin verilerini doldurma

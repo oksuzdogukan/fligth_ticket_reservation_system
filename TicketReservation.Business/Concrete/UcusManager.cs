@@ -75,14 +75,13 @@ namespace TicketReservation.Business.Concrete
 
             return _ucusDal.UcusSil(ucusId);
         }
-        
 
-        // ORTAK ISLEMLERI
         public List<Ucus> UcusListele()
         {
             return _ucusDal.UcusListele();
         }
 
+        // ORTAK ISLEMLERI
         public Ucus UcusGetir(int ucusId)
         {
             return _ucusDal.UcusGetir(ucusId);

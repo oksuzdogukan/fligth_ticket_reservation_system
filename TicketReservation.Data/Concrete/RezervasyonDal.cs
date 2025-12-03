@@ -165,6 +165,7 @@ namespace TicketReservation.Data.Concrete
             }
         }
 
+        // ucus silerken kontrol icin
         public bool AktifUcusRezervasyonuVarMi(int ucusId)
         {
             using (SqlConnection conn = Database.GetConnection())

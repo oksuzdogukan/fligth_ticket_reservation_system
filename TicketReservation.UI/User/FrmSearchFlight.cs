@@ -34,19 +34,11 @@ namespace TicketReservation.UI
         private void FrmViewRezervation_Load(object sender, EventArgs e)
         {
             var tumUcuslar = _ucusService.UcusListele();
-            //dataGridViewFlights.DataSource = tumUcuslar;
-            
-
-            // dataGridView da Ucak, UcakId, TemelFiyat column gorunmesin
-            //dataGridViewFlights.Columns["Ucak"].Visible = false;
-            //dataGridViewFlights.Columns["UcakId"].Visible = false;
-            //dataGridViewFlights.Columns["TemelFiyat"].Visible = false;
-
 
             // kalkis yerlerini comboBoxa koy
             comboBoxKalkisYeri.Items.Clear();
             comboBoxKalkisYeri.Items.AddRange(
-                tumUcuslar.Select(u => u.KalkisYeri).Distinct().ToArray() // distinc ayni sehirleri tekrar gostermemek icin
+                tumUcuslar.Select(u => u.KalkisYeri).Distinct().ToArray() // Distinc() ayni sehirleri tekrar gostermemek icin
                 );
 
             // Varis yerlerini comboBoxa koy
@@ -133,6 +125,14 @@ namespace TicketReservation.UI
 
         }
 
+        // secilen koltugu alan method
+        private void dataGridViewKoltuklar_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            _secilenKoltukNo = Convert.ToInt32(dataGridViewKoltuklar.Rows[e.RowIndex].Cells["KoltukNo"].Value);
+
+
+        }
+
         // koltuklarin doluluguna gore rengini duzenlemek icin
         private void dataGridViewKoltuklar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -163,11 +163,5 @@ namespace TicketReservation.UI
             }
         }
 
-        private void dataGridViewKoltuklar_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            _secilenKoltukNo = Convert.ToInt32(dataGridViewKoltuklar.Rows[e.RowIndex].Cells["KoltukNo"].Value);
-
-
-        }
     }
 }
