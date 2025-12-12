@@ -64,6 +64,12 @@
     <Compile Include="Admin\FrmFlights.Designer.cs">
       <DependentUpon>FrmFlights.cs</DependentUpon>
     </Compile>
+    <Compile Include="Admin\FrmRaports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\FrmRaports.Designer.cs">
+      <DependentUpon>FrmRaports.cs</DependentUpon>
+    </Compile>
     <Compile Include="User\FrmHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\FrmFlights.resx">
       <DependentUpon>FrmFlights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\FrmRaports.resx">
+      <DependentUpon>FrmRaports.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User\FrmHome.resx">
       <DependentUpon>FrmHome.cs</DependentUpon>

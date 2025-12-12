@@ -143,7 +143,7 @@ namespace TicketReservation.Data.Concrete
                     }
 
                     // koltugu bosalt
-                    string queryKoltuk = "UPDATE Koltuklar SET Dolumu=0 WHERE UcusId=@ucusID AND KoltukNo=@koltukNo";
+                    string queryKoltuk = "UPDATE Koltuklar SET Dolumu=0 WHERE UcusNo=@ucusID AND KoltukNo=@koltukNo";
 
                     using(SqlCommand cmdKoltuk = new SqlCommand(queryKoltuk, conn, transaction))
                     {
@@ -192,5 +192,108 @@ namespace TicketReservation.Data.Concrete
 
         }
 
+        public List<Rezervasyon> RezervasyonGoruntule(int musteriId)
+        {
+            List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
+
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    // Join işlemi ile Uçuş bilgilerini de alıyoruz ki ekranda Kalkış/Varış yeri görünsün
+                    string query = @"
+                        SELECT R.RezervasyonID, R.UcusId, R.KoltukNo, R.RezervasyonTarihi, R.Fiyat, R.Durum,
+                               U.KalkisYeri, U.VarisYeri, U.Tarih, U.Saat
+                        FROM Rezervasyonlar R
+                        INNER JOIN Ucuslar U ON R.UcusId = U.UcusNo
+                        WHERE R.MusteriId = @musteriId
+                        ORDER BY R.RezervasyonTarihi DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@musteriId", musteriId);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Rezervasyon rez = new Rezervasyon
+                            {
+                                RezervasyonId = Convert.ToInt32(reader["RezervasyonID"]),
+                                UcusId = Convert.ToInt32(reader["UcusId"]),
+                                KoltukNo = Convert.ToInt32(reader["KoltukNo"]),
+                                RezervasyonTarihi = Convert.ToDateTime(reader["RezervasyonTarihi"]),
+                                Fiyat = Convert.ToDecimal(reader["Fiyat"]),
+                                // Durum string olarak geliyor, Enum'a çevirebilir veya string kullanabiliriz.
+                                // Modelindeki Durum tipi Enum ise çevirme işlemi gerekir, şimdilik string varsayımıyla devam edelim veya Enum.Parse yapalım:
+                                // Durum = (RezervasyonDurumu)Enum.Parse(typeof(RezervasyonDurumu), reader["Durum"].ToString()),
+
+                                // Uçuş detaylarını içine gömelim (UI'da göstermek için)
+                                Ucus = new Ucus
+                                {
+                                    KalkisYeri = reader["KalkisYeri"].ToString(),
+                                    VarisYeri = reader["VarisYeri"].ToString(),
+                                    Tarih = Convert.ToDateTime(reader["Tarih"]),
+                                    Saat = TimeSpan.Parse(reader["Saat"].ToString())
+                                }
+                            };
+
+                            // Enum dönüşümü (Modelindeki yapıya göre):
+                            string durumStr = reader["Durum"].ToString();
+                            if (durumStr == "Aktif") rez.Durum = TicketReservation.Models.Enums.RezervasyonDurumu.Aktif;
+                            else if (durumStr == "IptalEdildi") rez.Durum = TicketReservation.Models.Enums.RezervasyonDurumu.IptalEdildi;
+                            else rez.Durum = TicketReservation.Models.Enums.RezervasyonDurumu.Tamamlandi;
+
+                            rezervasyonlar.Add(rez);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return rezervasyonlar;
+        }
+
+        //raporlama
+        public Dictionary<string, object> RaporVerileriniAl()
+        {
+            var veriler = new Dictionary<string, object>();
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+
+                    // 1. Toplam Gelir
+                    string queryGelir = "SELECT SUM(Fiyat) FROM Rezervasyonlar WHERE Durum != 'IptalEdildi'";
+                    using (SqlCommand cmd = new SqlCommand(queryGelir, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        veriler.Add("ToplamGelir", result != DBNull.Value ? Convert.ToDecimal(result) : 0m);
+                    }
+
+                    // 2. Toplam Rezervasyon
+                    string queryRezSayisi = "SELECT COUNT(*) FROM Rezervasyonlar";
+                    using (SqlCommand cmd = new SqlCommand(queryRezSayisi, conn))
+                    {
+                        veriler.Add("ToplamRezervasyon", Convert.ToInt32(cmd.ExecuteScalar()));
+                    }
+
+                    // 3. Toplam Uçuş Sayısı
+                    string queryUcusSayisi = "SELECT COUNT(*) FROM Ucuslar";
+                    using (SqlCommand cmd = new SqlCommand(queryUcusSayisi, conn))
+                    {
+                        veriler.Add("ToplamUcus", Convert.ToInt32(cmd.ExecuteScalar()));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return veriler;
+        }
     }
 }

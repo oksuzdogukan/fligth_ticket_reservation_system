@@ -9,7 +9,9 @@ namespace TicketReservation.Data.Interfaces
 {
     public interface IKullaniciDal
     {
-       
 
+        Kullanici GirisYap(string email, string sifre);
+
+        bool KayitOl(Musteri musteri);
     }
 }

@@ -71,6 +71,11 @@ namespace TicketReservation.Business.Concrete
 
         }
 
+        public List<Rezervasyon> RezervasyonGoruntule(int musteriId)
+        {
+            return _rezervasyonDal.RezervasyonGoruntule(musteriId);
+        }
+
         public List<Ucus> MusteriUcusAra(string kalkis, string varis)
         {
             List<Ucus> bulunanUcuslar = _ucusDal.UcusAra(kalkis, varis);
@@ -90,22 +95,44 @@ namespace TicketReservation.Business.Concrete
         private decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar)
         {
             decimal temelFiyat = ucus.TemelFiyat;
+            decimal sonFiyat = temelFiyat;
 
-            // KURAL: DOLULUK ORANINA GORE FIYAT HESAPLA
+            // 1. KURAL: DOLULUK ORANI
             int toplamKoltuk = koltuklar.Count();
             int doluKoltuk = koltuklar.Count(k => k.DoluMu == true);
-            double dolulukOrani = (double)doluKoltuk / toplamKoltuk;
 
-            if(dolulukOrani > 0.80) // ucak %80 den fazla doluysa
+            // Sıfıra bölünme hatasını önle
+            double dolulukOrani = toplamKoltuk > 0 ? (double)doluKoltuk / toplamKoltuk : 0;
+
+            if (dolulukOrani > 0.80)
+                sonFiyat += temelFiyat * 0.50m; // %50 zam
+            else if (dolulukOrani > 0.50)
+                sonFiyat += temelFiyat * 0.20m; // %20 zam
+
+            // 2. KURAL: UÇUŞA KALAN GÜN (Erken alan ucuza alır)
+            TimeSpan kalanSure = ucus.Tarih - DateTime.Now;
+            if (kalanSure.TotalDays < 3)
             {
-                temelFiyat *= 1.40m; // fiyata %40 ekle
+                sonFiyat += temelFiyat * 0.30m; // Son 3 gün kala %30 zam
             }
-            if(dolulukOrani > 0.50) // ucak %50 den fazla doluysa
+            else if (kalanSure.TotalDays > 30)
             {
-                temelFiyat *= 1.20m; // fiyata %20 ekle
+                sonFiyat -= temelFiyat * 0.10m; // 30 günden fazla varsa %10 indirim
             }
 
-            return Math.Round(temelFiyat, 2);
+            // 3. KURAL: HAFTA SONU UÇUŞU (Pazar günü daha pahalı olsun)
+            if (ucus.Tarih.DayOfWeek == DayOfWeek.Sunday)
+            {
+                sonFiyat += temelFiyat * 0.15m;
+            }
+
+            return Math.Round(sonFiyat, 2);
+        }
+
+        // raporlama
+        public Dictionary<string, object> RaporGetir()
+        {
+            return _rezervasyonDal.RaporVerileriniAl();
         }
     }
 }

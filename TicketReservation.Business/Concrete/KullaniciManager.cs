@@ -20,6 +20,24 @@ namespace TicketReservation.Business.Concrete
             _kullaniciDal = kullaniciDal;
         }
 
-       
+        public Kullanici GirisYap(string email, string sifre)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
+                throw new Exception("Email ve Şifre boş olamaz!");
+
+            return _kullaniciDal.GirisYap(email, sifre);
+        }
+
+        public bool KayitOl(Musteri musteri)
+        {
+            if (string.IsNullOrEmpty(musteri.Ad) || string.IsNullOrEmpty(musteri.Email))
+                throw new Exception("Gerekli alanları doldurunuz.");
+
+            // Şifre uzunluğu kontrolü vs. buraya eklenebilir.
+            if (musteri.Sifre.Length < 3)
+                throw new Exception("Şifre en az 3 karakter olmalı.");
+
+            return _kullaniciDal.KayitOl(musteri);
+        }
     }
 }

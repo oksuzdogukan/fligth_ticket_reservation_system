@@ -17,5 +17,10 @@ namespace TicketReservation.Business.Abstract
 
         bool RezervasyonIptalEt(int rezervasyonId);
 
+        List<Rezervasyon> RezervasyonGoruntule(int musteriId);
+
+        // raporlama
+        Dictionary<string, object> RaporGetir();
+
     }
 }

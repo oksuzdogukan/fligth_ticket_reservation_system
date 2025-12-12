@@ -2,266 +2,283 @@
 {
     partial class FrmSearchFlight
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.comboBoxKalkisYeri = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.comboBoxVarisYeri = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnRezervasyonYap = new Guna.UI2.WinForms.Guna2Button();
-            this.dataGridViewFlights = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+
+            this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            this.panelLeft = new Guna.UI2.WinForms.Guna2Panel();
+            this.labelBrand = new System.Windows.Forms.Label();
+            this.comboKalkis = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.comboVaris = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnUcusAra = new Guna.UI2.WinForms.Guna2Button();
-            this.dataGridViewKoltuklar = new System.Windows.Forms.DataGridView();
-            this.KoltukNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DoluMu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UcusNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KalkisYeri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VarisYeri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tarih = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Saat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fiyat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFlights)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKoltuklar)).BeginInit();
+            this.btnBack = new Guna.UI2.WinForms.Guna2Button(); // YENİ BUTON
+            this.labelKalkis = new System.Windows.Forms.Label();
+            this.labelVaris = new System.Windows.Forms.Label();
+            this.panelTop = new Guna.UI2.WinForms.Guna2Panel();
+            this.labelPageTitle = new System.Windows.Forms.Label();
+            this.btnClose = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.dgvFlights = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.dgvKoltuklar = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnRezervasyonYap = new Guna.UI2.WinForms.Guna2Button();
+            this.labelUcuslar = new System.Windows.Forms.Label();
+            this.labelKoltuklar = new System.Windows.Forms.Label();
+
+            this.panelLeft.SuspendLayout();
+            this.panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlights)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKoltuklar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // comboBoxKalkisYeri
-            // 
-            this.comboBoxKalkisYeri.BackColor = System.Drawing.Color.Transparent;
-            this.comboBoxKalkisYeri.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxKalkisYeri.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKalkisYeri.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxKalkisYeri.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxKalkisYeri.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.comboBoxKalkisYeri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.comboBoxKalkisYeri.ItemHeight = 30;
-            this.comboBoxKalkisYeri.Location = new System.Drawing.Point(51, 92);
-            this.comboBoxKalkisYeri.Name = "comboBoxKalkisYeri";
-            this.comboBoxKalkisYeri.Size = new System.Drawing.Size(140, 36);
-            this.comboBoxKalkisYeri.TabIndex = 0;
-            // 
-            // comboBoxVarisYeri
-            // 
-            this.comboBoxVarisYeri.BackColor = System.Drawing.Color.Transparent;
-            this.comboBoxVarisYeri.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxVarisYeri.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxVarisYeri.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxVarisYeri.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboBoxVarisYeri.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.comboBoxVarisYeri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.comboBoxVarisYeri.ItemHeight = 30;
-            this.comboBoxVarisYeri.Location = new System.Drawing.Point(274, 92);
-            this.comboBoxVarisYeri.Name = "comboBoxVarisYeri";
-            this.comboBoxVarisYeri.Size = new System.Drawing.Size(140, 36);
-            this.comboBoxVarisYeri.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label1.Location = new System.Drawing.Point(79, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 24);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Kalkis Yeri";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label2.Location = new System.Drawing.Point(305, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 24);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Varis Yeri";
-            // 
-            // btnRezervasyonYap
-            // 
-            this.btnRezervasyonYap.BorderRadius = 10;
-            this.btnRezervasyonYap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRezervasyonYap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRezervasyonYap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRezervasyonYap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRezervasyonYap.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnRezervasyonYap.ForeColor = System.Drawing.Color.White;
-            this.btnRezervasyonYap.Location = new System.Drawing.Point(928, 313);
-            this.btnRezervasyonYap.Name = "btnRezervasyonYap";
-            this.btnRezervasyonYap.Size = new System.Drawing.Size(135, 37);
-            this.btnRezervasyonYap.TabIndex = 5;
-            this.btnRezervasyonYap.Text = "Rezervasyon Yap";
-            this.btnRezervasyonYap.Click += new System.EventHandler(this.btnRezervasyonYap_Click);
-            // 
-            // dataGridViewFlights
-            // 
-            this.dataGridViewFlights.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFlights.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.UcusNo,
-            this.KalkisYeri,
-            this.VarisYeri,
-            this.Tarih,
-            this.Saat,
-            this.Fiyat});
-            this.dataGridViewFlights.Location = new System.Drawing.Point(500, 22);
-            this.dataGridViewFlights.Name = "dataGridViewFlights";
-            this.dataGridViewFlights.RowHeadersWidth = 51;
-            this.dataGridViewFlights.Size = new System.Drawing.Size(653, 252);
-            this.dataGridViewFlights.TabIndex = 6;
-            this.dataGridViewFlights.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewFlights_CellMouseClick);
-            // 
+
+            // guna2Elipse1
+            this.guna2Elipse1.TargetControl = this;
+
+            // panelLeft
+            this.panelLeft.BackColor = System.Drawing.Color.FromArgb(42, 54, 80);
+            this.panelLeft.Controls.Add(this.labelBrand);
+            this.panelLeft.Controls.Add(this.comboKalkis);
+            this.panelLeft.Controls.Add(this.comboVaris);
+            this.panelLeft.Controls.Add(this.btnUcusAra);
+            this.panelLeft.Controls.Add(this.btnBack); // Panele ekle
+            this.panelLeft.Controls.Add(this.labelKalkis);
+            this.panelLeft.Controls.Add(this.labelVaris);
+            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelLeft.Size = new System.Drawing.Size(250, 600);
+
+            // labelBrand
+            this.labelBrand.AutoSize = true;
+            this.labelBrand.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.labelBrand.ForeColor = System.Drawing.Color.White;
+            this.labelBrand.Location = new System.Drawing.Point(20, 30);
+            this.labelBrand.Text = "Uçuş Arama";
+
+            // labelKalkis
+            this.labelKalkis.AutoSize = true;
+            this.labelKalkis.ForeColor = System.Drawing.Color.LightGray;
+            this.labelKalkis.Location = new System.Drawing.Point(22, 100);
+            this.labelKalkis.Text = "Kalkış Yeri";
+
+            // comboKalkis
+            this.comboKalkis.BorderRadius = 10;
+            this.comboKalkis.Location = new System.Drawing.Point(25, 120);
+            this.comboKalkis.Size = new System.Drawing.Size(200, 36);
+
+            // labelVaris
+            this.labelVaris.AutoSize = true;
+            this.labelVaris.ForeColor = System.Drawing.Color.LightGray;
+            this.labelVaris.Location = new System.Drawing.Point(22, 170);
+            this.labelVaris.Text = "Varış Yeri";
+
+            // comboVaris
+            this.comboVaris.BorderRadius = 10;
+            this.comboVaris.Location = new System.Drawing.Point(25, 190);
+            this.comboVaris.Size = new System.Drawing.Size(200, 36);
+
             // btnUcusAra
             // 
             this.btnUcusAra.BorderRadius = 10;
-            this.btnUcusAra.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnUcusAra.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnUcusAra.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUcusAra.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnUcusAra.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnUcusAra.FillColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.btnUcusAra.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnUcusAra.ForeColor = System.Drawing.Color.White;
-            this.btnUcusAra.Location = new System.Drawing.Point(170, 176);
-            this.btnUcusAra.Name = "btnUcusAra";
-            this.btnUcusAra.Size = new System.Drawing.Size(135, 37);
-            this.btnUcusAra.TabIndex = 7;
-            this.btnUcusAra.Text = "Ucus Ara";
+            this.btnUcusAra.Location = new System.Drawing.Point(25, 250);
+            this.btnUcusAra.Size = new System.Drawing.Size(200, 45);
+            this.btnUcusAra.Text = "UÇUŞ BUL";
             this.btnUcusAra.Click += new System.EventHandler(this.btnUcusAra_Click);
+
+            // btnBack (YENİ BUTON)
             // 
-            // dataGridViewKoltuklar
+            this.btnBack.BorderRadius = 10;
+            this.btnBack.FillColor = System.Drawing.Color.Gray;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Location = new System.Drawing.Point(25, 530); // En alta koyduk
+            this.btnBack.Size = new System.Drawing.Size(200, 45);
+            this.btnBack.Text = "GERİ DÖN";
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+
+            // panelTop ve diğer bileşenler aynı...
+            this.panelTop.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelTop.Controls.Add(this.labelPageTitle);
+            this.panelTop.Controls.Add(this.btnClose);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Size = new System.Drawing.Size(950, 50);
+
+            // labelPageTitle
+            this.labelPageTitle.AutoSize = true;
+            this.labelPageTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.labelPageTitle.ForeColor = System.Drawing.Color.Gray;
+            this.labelPageTitle.Location = new System.Drawing.Point(270, 15);
+            this.labelPageTitle.Text = "Müsait Uçuşlar ve Koltuk Seçimi";
+
+            // btnClose
+            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnClose.FillColor = System.Drawing.Color.Transparent;
+            this.btnClose.IconColor = System.Drawing.Color.Gray;
+            this.btnClose.Location = new System.Drawing.Point(1140, 10);
+
+            // labelUcuslar
+            this.labelUcuslar.AutoSize = true;
+            this.labelUcuslar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.labelUcuslar.Location = new System.Drawing.Point(270, 70);
+            this.labelUcuslar.Text = "Bulunan Uçuşlar";
+
+            // dgvFlights
+            this.dgvFlights.AllowUserToAddRows = false;
+            this.dgvFlights.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvFlights.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFlights.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvFlights.ColumnHeadersHeight = 30;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            this.dgvFlights.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvFlights.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvFlights.Location = new System.Drawing.Point(270, 95);
+            this.dgvFlights.ReadOnly = true;
+            this.dgvFlights.RowHeadersVisible = false;
+            this.dgvFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFlights.Size = new System.Drawing.Size(600, 200);
+            this.dgvFlights.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvFlights.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvFlights.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvFlights.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvFlights.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvFlights.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvFlights.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvFlights.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(100, 88, 255);
+            this.dgvFlights.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvFlights.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.dgvFlights.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvFlights.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvFlights.ThemeStyle.HeaderStyle.Height = 30;
+            this.dgvFlights.ThemeStyle.ReadOnly = true;
+            this.dgvFlights.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvFlights.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvFlights.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.dgvFlights.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            this.dgvFlights.ThemeStyle.RowsStyle.Height = 22;
+            this.dgvFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            this.dgvFlights.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFlights_CellMouseClick);
+
+            // labelKoltuklar
+            this.labelKoltuklar.AutoSize = true;
+            this.labelKoltuklar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.labelKoltuklar.Location = new System.Drawing.Point(270, 310);
+            this.labelKoltuklar.Text = "Koltuk Seçimi (Yeşil: Boş, Kırmızı: Dolu)";
+
+            // dgvKoltuklar
+            this.dgvKoltuklar.AllowUserToAddRows = false;
+            this.dgvKoltuklar.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dgvKoltuklar.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvKoltuklar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvKoltuklar.ColumnHeadersHeight = 30;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvKoltuklar.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvKoltuklar.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvKoltuklar.Location = new System.Drawing.Point(270, 335);
+            this.dgvKoltuklar.ReadOnly = true;
+            this.dgvKoltuklar.RowHeadersVisible = false;
+            this.dgvKoltuklar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvKoltuklar.Size = new System.Drawing.Size(350, 200);
+            this.dgvKoltuklar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKoltuklar_CellFormatting);
+            this.dgvKoltuklar.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKoltuklar_CellMouseClick);
+
+            // btnRezervasyonYap
             // 
-            this.dataGridViewKoltuklar.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewKoltuklar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKoltuklar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.KoltukNo,
-            this.DoluMu});
-            this.dataGridViewKoltuklar.Location = new System.Drawing.Point(500, 291);
-            this.dataGridViewKoltuklar.Name = "dataGridViewKoltuklar";
-            this.dataGridViewKoltuklar.RowHeadersWidth = 51;
-            this.dataGridViewKoltuklar.Size = new System.Drawing.Size(355, 152);
-            this.dataGridViewKoltuklar.TabIndex = 8;
-            this.dataGridViewKoltuklar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewKoltuklar_CellFormatting);
-            this.dataGridViewKoltuklar.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewKoltuklar_CellMouseClick);
-            // 
-            // KoltukNo
-            // 
-            this.KoltukNo.DataPropertyName = "KoltukNo";
-            this.KoltukNo.HeaderText = "Koltuk No";
-            this.KoltukNo.MinimumWidth = 6;
-            this.KoltukNo.Name = "KoltukNo";
-            this.KoltukNo.Width = 150;
-            // 
-            // DoluMu
-            // 
-            this.DoluMu.DataPropertyName = "DoluMu";
-            this.DoluMu.HeaderText = "Doluluk Durumu";
-            this.DoluMu.MinimumWidth = 6;
-            this.DoluMu.Name = "DoluMu";
-            this.DoluMu.Width = 150;
-            // 
-            // UcusNo
-            // 
-            this.UcusNo.DataPropertyName = "UcusId";
-            this.UcusNo.HeaderText = "Ucus No";
-            this.UcusNo.MinimumWidth = 6;
-            this.UcusNo.Name = "UcusNo";
-            // 
-            // KalkisYeri
-            // 
-            this.KalkisYeri.DataPropertyName = "KalkisYeri";
-            this.KalkisYeri.HeaderText = "Kalkis Yeri";
-            this.KalkisYeri.MinimumWidth = 6;
-            this.KalkisYeri.Name = "KalkisYeri";
-            // 
-            // VarisYeri
-            // 
-            this.VarisYeri.DataPropertyName = "VarisYeri";
-            this.VarisYeri.HeaderText = "Varis Yeri";
-            this.VarisYeri.MinimumWidth = 6;
-            this.VarisYeri.Name = "VarisYeri";
-            // 
-            // Tarih
-            // 
-            this.Tarih.DataPropertyName = "Tarih";
-            this.Tarih.HeaderText = "Tarih";
-            this.Tarih.MinimumWidth = 6;
-            this.Tarih.Name = "Tarih";
-            // 
-            // Saat
-            // 
-            this.Saat.DataPropertyName = "Saat";
-            this.Saat.HeaderText = "Saat";
-            this.Saat.MinimumWidth = 6;
-            this.Saat.Name = "Saat";
-            // 
-            // Fiyat
-            // 
-            this.Fiyat.DataPropertyName = "SatisFiyati";
-            this.Fiyat.HeaderText = "Fiyat";
-            this.Fiyat.MinimumWidth = 6;
-            this.Fiyat.Name = "Fiyat";
-            // 
-            // FrmSearchFlight
-            // 
+            this.btnRezervasyonYap.BorderRadius = 10;
+            this.btnRezervasyonYap.FillColor = System.Drawing.Color.FromArgb(46, 204, 113);
+            this.btnRezervasyonYap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnRezervasyonYap.ForeColor = System.Drawing.Color.White;
+            this.btnRezervasyonYap.Location = new System.Drawing.Point(650, 485);
+            this.btnRezervasyonYap.Size = new System.Drawing.Size(220, 50);
+            this.btnRezervasyonYap.Text = "REZERVASYONU TAMAMLA";
+            this.btnRezervasyonYap.Click += new System.EventHandler(this.btnRezervasyonYap_Click);
+
+            // Form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 541);
-            this.Controls.Add(this.dataGridViewKoltuklar);
-            this.Controls.Add(this.btnUcusAra);
-            this.Controls.Add(this.dataGridViewFlights);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1200, 600);
             this.Controls.Add(this.btnRezervasyonYap);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxVarisYeri);
-            this.Controls.Add(this.comboBoxKalkisYeri);
+            this.Controls.Add(this.dgvKoltuklar);
+            this.Controls.Add(this.labelKoltuklar);
+            this.Controls.Add(this.dgvFlights);
+            this.Controls.Add(this.labelUcuslar);
+            this.Controls.Add(this.panelTop);
+            this.Controls.Add(this.panelLeft);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSearchFlight";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmViewRezervation";
-            this.Load += new System.EventHandler(this.FrmViewRezervation_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFlights)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKoltuklar)).EndInit();
+            this.Text = "Uçuş Arama";
+            this.Load += new System.EventHandler(this.FrmSearchFlight_Load);
+            this.panelLeft.ResumeLayout(false);
+            this.panelLeft.PerformLayout();
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFlights)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKoltuklar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2ComboBox comboBoxKalkisYeri;
-        private Guna.UI2.WinForms.Guna2ComboBox comboBoxVarisYeri;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2Button btnRezervasyonYap;
-        private System.Windows.Forms.DataGridView dataGridViewFlights;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
+        private Guna.UI2.WinForms.Guna2Panel panelLeft;
+        private Guna.UI2.WinForms.Guna2Panel panelTop;
+        private System.Windows.Forms.Label labelBrand;
+        private Guna.UI2.WinForms.Guna2ComboBox comboKalkis;
+        private Guna.UI2.WinForms.Guna2ComboBox comboVaris;
         private Guna.UI2.WinForms.Guna2Button btnUcusAra;
-        private System.Windows.Forms.DataGridView dataGridViewKoltuklar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KoltukNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DoluMu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UcusNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KalkisYeri;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VarisYeri;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tarih;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Saat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fiyat;
+        private Guna.UI2.WinForms.Guna2Button btnBack;
+        private System.Windows.Forms.Label labelKalkis;
+        private System.Windows.Forms.Label labelVaris;
+        private Guna.UI2.WinForms.Guna2ControlBox btnClose;
+        private System.Windows.Forms.Label labelPageTitle;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvFlights;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvKoltuklar;
+        private Guna.UI2.WinForms.Guna2Button btnRezervasyonYap;
+        private System.Windows.Forms.Label labelUcuslar;
+        private System.Windows.Forms.Label labelKoltuklar;
     }
 }

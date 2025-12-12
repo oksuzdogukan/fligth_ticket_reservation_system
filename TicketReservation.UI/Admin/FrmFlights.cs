@@ -1,24 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicketReservation.Business.Abstract;
-using TicketReservation.Business.Concrete;
 using TicketReservation.Models;
 
 namespace TicketReservation.UI.Admin
 {
     public partial class FrmFlights : Form
     {
-        private readonly IUcusService _ucusService; // business katmaniyla iletisim icin
-
-      
+        private readonly IUcusService _ucusService;
 
         public FrmFlights(IUcusService ucusService)
         {
@@ -26,148 +15,163 @@ namespace TicketReservation.UI.Admin
             _ucusService = ucusService;
         }
 
-        // form yuklendiginde verileri listele
         private void FrmFlights_Load(object sender, EventArgs e)
         {
-            dataGridViewFlights.DataSource = _ucusService.UcusListele();
-
-            // dataGridView da Ucak column gorunmesin
-            dataGridViewFlights.Columns["Ucak"].Visible = false;
-            dataGridViewFlights.Columns["SatisFiyati"].Visible = false;
+            Listele();
         }
 
-        // secilen satirin verilerini doldurma
-        private void dataGridViewFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void Listele()
         {
-            try
-            {
-                DataGridViewRow selectedRow = dataGridViewFlights.SelectedRows[0]; // en basta secilen ilk satir
+            dgvFlights.DataSource = _ucusService.UcusListele();
 
-                Ucus ucus = new Ucus
-                {
-                    UcusId = Convert.ToInt32(selectedRow.Cells["UcusNo"].Value.ToString()),
-                    KalkisYeri = selectedRow.Cells["KalkisYeri"].Value.ToString(),
-                    VarisYeri = selectedRow.Cells["VarisYeri"].Value.ToString(),
-                    Tarih = Convert.ToDateTime(selectedRow.Cells["Tarih"].Value),
-                    Saat = TimeSpan.Parse(selectedRow.Cells["Saat"].Value.ToString()),
-                    TemelFiyat = Convert.ToDecimal(selectedRow.Cells["TemelFiyat"].Value),
-                    UcakId = Convert.ToInt32(selectedRow.Cells["UcakId"].Value),
-                };
-
-                txtUcusNo.Text = ucus.UcusId.ToString();
-                txtKalkisYeri.Text = ucus.KalkisYeri.ToString();
-                txtVarisYeri.Text = ucus.VarisYeri.ToString();
-                txtTarih.Text = ucus.Tarih.ToString();
-                txtSaat.Text = ucus.Saat.ToString();
-                txtTemelFiyat.Text = ucus.TemelFiyat.ToString();
-                txtUcakId.Text = ucus.UcakId.ToString();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            
-
+            // Gereksiz sütunları gizle
+            if (dgvFlights.Columns["Ucak"] != null) dgvFlights.Columns["Ucak"].Visible = false;
+            if (dgvFlights.Columns["SatisFiyati"] != null) dgvFlights.Columns["SatisFiyati"].Visible = false;
         }
 
-        // ucus ekleme butonu
         private void btnAddFlight_Click(object sender, EventArgs e)
         {
             try
             {
                 Ucus ucus = new Ucus
                 {
-                    // girilen yeni ucus bilgilerini al
                     KalkisYeri = txtKalkisYeri.Text,
                     VarisYeri = txtVarisYeri.Text,
-                    Tarih = txtTarih.Value.Date,
-                    Saat = txtSaat.Value.TimeOfDay,
+                    Tarih = dtpTarih.Value.Date,
+                    Saat = dtpSaat.Value.TimeOfDay,
                     TemelFiyat = Convert.ToDecimal(txtTemelFiyat.Text),
                     UcakId = Convert.ToInt32(txtUcakId.Text)
                 };
-                // ucusu ekle
+
                 bool basarili = _ucusService.UcusEkle(ucus);
 
                 if (basarili)
                 {
-                    dataGridViewFlights.DataSource = null;
-                    dataGridViewFlights.DataSource = _ucusService.UcusListele();
+                    MessageBox.Show("Uçuş başarıyla eklendi.");
+                    Listele();
+                    Temizle();
                 }
                 else
                 {
-                    MessageBox.Show("Ucus Eklenirken Sorun Olustu");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("hata:" + ex.Message);
-            }
-            
-        }
-
-        // ucus silme butonu
-        private void btnDeleteFlight_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                DataGridViewRow selectedRow = dataGridViewFlights.SelectedRows[0];
-                int ucusId = Convert.ToInt32(selectedRow.Cells["UcusNo"].Value.ToString());
-
-                bool basarili = _ucusService.UcusSil(ucusId);
-
-                if (basarili)
-                {
-                    MessageBox.Show("Ucus Silindi");
-                    dataGridViewFlights.DataSource = _ucusService.UcusListele();
-                }
-                else
-                {
-                    MessageBox.Show("Ucus Silinirken Hata");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Hata: " + ex.Message);
-
-            }
-
-            
-        }
-
-        // ucus guncelleme butonu
-        private void btnUpdateFlight_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Ucus ucus = new Ucus
-                {
-                    // girilen yeni ucus bilgilerini al
-                    UcusId = Convert.ToInt32(txtUcusNo.Text),
-                    KalkisYeri = txtKalkisYeri.Text,
-                    VarisYeri = txtVarisYeri.Text,
-                    Tarih = txtTarih.Value.Date,
-                    Saat = txtSaat.Value.TimeOfDay,
-                    TemelFiyat = Convert.ToDecimal(txtTemelFiyat.Text),
-                    UcakId = Convert.ToInt32(txtUcakId.Text)
-                };
-                // ucusu ekle
-                bool basarili = _ucusService.UcusGuncelle(ucus);
-
-                if (basarili)
-                {
-                    dataGridViewFlights.DataSource = null;
-                    dataGridViewFlights.DataSource = _ucusService.UcusListele();
-                }
-                else
-                {
-                    MessageBox.Show("Ucus Guncellenirken Sorun Olustu");
+                    MessageBox.Show("Uçuş eklenirken bir hata oluştu.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("hata:" + ex.Message);
+                MessageBox.Show("Hata: " + ex.Message);
             }
+        }
+
+        private void btnUpdateFlight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtUcusNo.Text)) return;
+
+                Ucus ucus = new Ucus
+                {
+                    UcusId = Convert.ToInt32(txtUcusNo.Text),
+                    KalkisYeri = txtKalkisYeri.Text,
+                    VarisYeri = txtVarisYeri.Text,
+                    Tarih = dtpTarih.Value.Date,
+                    Saat = dtpSaat.Value.TimeOfDay,
+                    TemelFiyat = Convert.ToDecimal(txtTemelFiyat.Text),
+                    UcakId = Convert.ToInt32(txtUcakId.Text)
+                };
+
+                bool basarili = _ucusService.UcusGuncelle(ucus);
+
+                if (basarili)
+                {
+                    MessageBox.Show("Uçuş güncellendi.");
+                    Listele();
+                    Temizle();
+                }
+                else
+                {
+                    MessageBox.Show("Güncelleme başarısız.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
+            }
+        }
+
+        private void btnDeleteFlight_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtUcusNo.Text))
+                {
+                    MessageBox.Show("Silmek için listeden bir uçuş seçiniz.");
+                    return;
+                }
+
+                int ucusId = Convert.ToInt32(txtUcusNo.Text);
+
+                if (MessageBox.Show("Bu uçuşu silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    bool basarili = _ucusService.UcusSil(ucusId);
+                    if (basarili)
+                    {
+                        MessageBox.Show("Uçuş silindi.");
+                        Listele();
+                        Temizle();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Uçuş silinemedi (Aktif rezervasyon olabilir).");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
+            }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close(); // FrmAdminHome zaten arkada açık, burayı kapatınca orası görünecek.
+        }
+        private void dataGridViewFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    DataGridViewRow row = dgvFlights.Rows[e.RowIndex];
+                    txtUcusNo.Text = row.Cells["UcusId"].Value.ToString();
+                    txtKalkisYeri.Text = row.Cells["KalkisYeri"].Value.ToString();
+                    txtVarisYeri.Text = row.Cells["VarisYeri"].Value.ToString();
+                    dtpTarih.Value = Convert.ToDateTime(row.Cells["Tarih"].Value);
+
+                    // TimeSpan dönüşümü
+                    TimeSpan ts = (TimeSpan)row.Cells["Saat"].Value;
+                    dtpSaat.Value = DateTime.Today.Add(ts);
+
+                    txtTemelFiyat.Text = row.Cells["TemelFiyat"].Value.ToString();
+                    txtUcakId.Text = row.Cells["UcakId"].Value.ToString();
+                }
+                catch { }
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            Temizle();
+        }
+
+        private void Temizle()
+        {
+            txtUcusNo.Clear();
+            txtKalkisYeri.Clear();
+            txtVarisYeri.Clear();
+            txtTemelFiyat.Clear();
+            txtUcakId.Clear();
+            dtpTarih.Value = DateTime.Now;
+            dtpSaat.Value = DateTime.Now;
         }
     }
 }

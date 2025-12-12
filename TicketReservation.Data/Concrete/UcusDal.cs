@@ -96,7 +96,15 @@ namespace TicketReservation.Data.Concrete
 
                 try
                 {
-                    // 1. once koltuklari sil
+                    // 1. ucusa ait rezervasyonlari sil
+                    string rezervasyonQuery = "DELETE FROM Rezervasyonlar WHERE UcusId=@ucusId";
+                    using(SqlCommand rezCmd = new SqlCommand(rezervasyonQuery, conn, transaction))
+                    {
+                        rezCmd.Parameters.AddWithValue("@ucusId", ucusId);
+                        rezCmd.ExecuteNonQuery();
+                    }
+
+                    // 2. koltuklari sil
 
                     string koltukQuery = "DELETE FROM Koltuklar WHERE UcusNo=@ucusNo";
                     using(SqlCommand koltukCmd = new SqlCommand(koltukQuery, conn, transaction))
@@ -106,7 +114,7 @@ namespace TicketReservation.Data.Concrete
                         koltukCmd.ExecuteNonQuery();
                     }
 
-                    // 2. Ucusu sil
+                    // 3. Ucusu sil
                     string ucusQuery = "DELETE FROM Ucuslar WHERE UcusNo=@ucusNo";
 
                     using(SqlCommand ucusCmd = new SqlCommand(ucusQuery, conn, transaction))

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TicketReservation.Business.Concrete;
+using TicketReservation.Data.Concrete;
+using TicketReservation.UI.Admin; // FrmFlights burada
 
 namespace TicketReservation.UI
 {
@@ -15,6 +11,33 @@ namespace TicketReservation.UI
         public FrmAdminHome()
         {
             InitializeComponent();
+        }
+
+        private void btnFlights_Click(object sender, EventArgs e)
+        {
+            // FrmFlights'ı açmak için gerekli bağımlılıkları oluştur
+            var ucusDal = new UcusDal();
+            var rezervasyonDal = new RezervasyonDal(); // Uçuş silerken kontrol için lazım
+            var ucusManager = new UcusManager(ucusDal, rezervasyonDal);
+
+            FrmFlights frmFlights = new FrmFlights(ucusManager);
+            frmFlights.ShowDialog(); // Formu aç
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            var rezDal = new RezervasyonDal();
+            var koltukDal = new KoltukDal();
+            var ucusDal = new UcusDal();
+            var rezManager = new RezervasyonManager(rezDal, koltukDal, ucusDal);
+
+            FrmReports reportForm = new FrmReports(rezManager);
+            reportForm.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close(); // Ana ekrana veya login'e döner
         }
     }
 }
