@@ -12,5 +12,7 @@ namespace TicketReservation.Models
         public int UcusId { get; set; }
         public int KoltukNo { get; set; }
         public bool DoluMu { get; set; }
+
+        public bool IsBusiness { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace TicketReservation.Data.Concrete
                 try
                 {
                     conn.Open();
-                    string query = "SELECT * FROM Koltuklar WHERE UcusNo=@ucusNo";
+                    string query = "SELECT * FROM Koltuklar WHERE UcusNo=@ucusNo ORDER BY KoltukNo";
 
                     using(SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -35,7 +35,8 @@ namespace TicketReservation.Data.Concrete
                                 KoltukId = Convert.ToInt32(reader["KoltukId"]),
                                 UcusId = Convert.ToInt32(reader["UcusNo"]),
                                 KoltukNo = Convert.ToInt32(reader["KoltukNo"]),
-                                DoluMu = Convert.ToBoolean(reader["DoluMu"])
+                                DoluMu = Convert.ToBoolean(reader["DoluMu"]),
+                                IsBusiness = reader["IsBusiness"] != DBNull.Value && Convert.ToBoolean(reader["IsBusiness"])
                             };
                             koltuklar.Add(koltuk);
                         }

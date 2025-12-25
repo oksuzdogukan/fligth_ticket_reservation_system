@@ -82,6 +82,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="User\FrmSeatSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\FrmSeatSelection.Designer.cs">
+      <DependentUpon>FrmSeatSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="User\FrmViewRezervastion.cs">
       <SubType>Form</SubType>
     </Compile>
