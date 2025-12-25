@@ -48,8 +48,9 @@
             this.panelLeft.Controls.Add(this.labelBrand);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(300, 450);
+            this.panelLeft.Size = new System.Drawing.Size(400, 554);
             this.panelLeft.TabIndex = 0;
             // 
             // labelBrand
@@ -57,9 +58,10 @@
             this.labelBrand.AutoSize = true;
             this.labelBrand.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.labelBrand.ForeColor = System.Drawing.Color.White;
-            this.labelBrand.Location = new System.Drawing.Point(34, 184);
+            this.labelBrand.Location = new System.Drawing.Point(58, 172);
+            this.labelBrand.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBrand.Name = "labelBrand";
-            this.labelBrand.Size = new System.Drawing.Size(225, 90);
+            this.labelBrand.Size = new System.Drawing.Size(260, 108);
             this.labelBrand.TabIndex = 0;
             this.labelBrand.Text = "Uçak Bileti\r\nRezervasyon";
             this.labelBrand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,12 +78,12 @@
             this.txtEmail.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtEmail.Location = new System.Drawing.Point(353, 137);
+            this.txtEmail.Location = new System.Drawing.Point(471, 169);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PasswordChar = '\0';
             this.txtEmail.PlaceholderText = "E-Mail Adresi";
             this.txtEmail.SelectedText = "";
-            this.txtEmail.Size = new System.Drawing.Size(258, 36);
+            this.txtEmail.Size = new System.Drawing.Size(344, 44);
             this.txtEmail.TabIndex = 1;
             // 
             // txtPassword
@@ -96,12 +98,13 @@
             this.txtPassword.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtPassword.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPassword.Location = new System.Drawing.Point(353, 192);
+            this.txtPassword.Location = new System.Drawing.Point(471, 236);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
             this.txtPassword.PlaceholderText = "Şifre";
             this.txtPassword.SelectedText = "";
-            this.txtPassword.Size = new System.Drawing.Size(258, 36);
+            this.txtPassword.Size = new System.Drawing.Size(344, 44);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -115,9 +118,10 @@
             this.btnLogin.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(54)))), ((int)(((byte)(80)))));
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(353, 255);
+            this.btnLogin.Location = new System.Drawing.Point(471, 314);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(121, 45);
+            this.btnLogin.Size = new System.Drawing.Size(161, 55);
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "GİRİŞ YAP";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -132,9 +136,10 @@
             this.btnGoToSignUp.FillColor = System.Drawing.Color.Transparent;
             this.btnGoToSignUp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnGoToSignUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(54)))), ((int)(((byte)(80)))));
-            this.btnGoToSignUp.Location = new System.Drawing.Point(490, 255);
+            this.btnGoToSignUp.Location = new System.Drawing.Point(653, 314);
+            this.btnGoToSignUp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGoToSignUp.Name = "btnGoToSignUp";
-            this.btnGoToSignUp.Size = new System.Drawing.Size(121, 45);
+            this.btnGoToSignUp.Size = new System.Drawing.Size(161, 55);
             this.btnGoToSignUp.TabIndex = 4;
             this.btnGoToSignUp.Text = "KAYIT OL";
             this.btnGoToSignUp.Click += new System.EventHandler(this.btnGoToSignUp_Click);
@@ -144,9 +149,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(54)))), ((int)(((byte)(80)))));
-            this.label1.Location = new System.Drawing.Point(347, 65);
+            this.label1.Location = new System.Drawing.Point(463, 80);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 32);
+            this.label1.Size = new System.Drawing.Size(213, 41);
             this.label1.TabIndex = 5;
             this.label1.Text = "Hoş Geldiniz !";
             // 
@@ -154,9 +160,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(350, 97);
+            this.label2.Location = new System.Drawing.Point(467, 119);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(183, 13);
+            this.label2.Size = new System.Drawing.Size(224, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "Devam etmek için lütfen giriş yapınız.";
             // 
@@ -165,17 +172,18 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.FillColor = System.Drawing.Color.Transparent;
             this.btnClose.IconColor = System.Drawing.Color.Gray;
-            this.btnClose.Location = new System.Drawing.Point(645, 12);
+            this.btnClose.Location = new System.Drawing.Point(860, 15);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(45, 29);
+            this.btnClose.Size = new System.Drawing.Size(60, 36);
             this.btnClose.TabIndex = 7;
             // 
             // FrmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(702, 450);
+            this.ClientSize = new System.Drawing.Size(936, 554);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -185,6 +193,7 @@
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.panelLeft);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Giriş Yap";
