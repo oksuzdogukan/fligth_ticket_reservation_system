@@ -9,15 +9,15 @@ namespace TicketReservation.UI.UserUI
 {
     public partial class FrmSeatSelection : Form
     {
-        // Propertyler (Dışarı veri aktarmak için)
+        // Propertyler
         public int SelectedSeatNumber { get; private set; } = 0;
         public decimal FinalPrice { get; private set; } = 0;
         public bool IsConfirmed { get; private set; } = false;
 
-        // İç değişkenler
+
         private readonly List<Koltuk> _koltuklar;
         private readonly decimal _basePrice;
-        private Guna2Button _lastClickedButton = null; // Seçimi takip etmek için
+        private Guna2Button _lastClickedButton = null;
 
         public FrmSeatSelection(List<Koltuk> koltuklar, decimal basePrice)
         {
@@ -37,8 +37,6 @@ namespace TicketReservation.UI.UserUI
         private void LoadSeats()
         {
             flowSeatPanel.Controls.Clear();
-            // Panel genişliğini sabitleyerek koltukların kaymasını engelliyoruz
-            // (50px buton + 10px margin) * 6 koltuk + 50px koridor boşluğu + scrollbar payı
             flowSeatPanel.Width = 460;
 
             foreach (var koltuk in _koltuklar)
@@ -51,19 +49,17 @@ namespace TicketReservation.UI.UserUI
                 btn.Tag = koltuk;
                 btn.Font = new Font("Segoe UI", 9, FontStyle.Bold);
 
-                // Standart Margin: Her yönden 5px
+
                 Padding margin = new Padding(5);
 
-                // KORİDOR MANTIĞI: Her sıranın 3. koltuğundan sonra geniş bir sağ boşluk bırak
-                // 1 2 3 [KORİDOR] 4 5 6
+
                 if (koltuk.KoltukNo % 6 == 3)
                 {
-                    margin.Right = 60; // Orta koridor genişliği
+                    margin.Right = 60; // Orta koridor
                 }
 
                 btn.Margin = margin;
 
-                // Renk ve Durum Ayarları (Mevcut kodunla aynı kalsın)
                 if (koltuk.DoluMu)
                 {
                     btn.FillColor = Color.FromArgb(231, 76, 60);
@@ -86,7 +82,7 @@ namespace TicketReservation.UI.UserUI
             Guna2Button clickedBtn = (Guna2Button)sender;
             Koltuk koltuk = (Koltuk)clickedBtn.Tag;
 
-            // 1. Önceki seçimi sıfırla (Rengini eski haline döndür)
+            // 1. Onceki secimi sifirla
             if (_lastClickedButton != null)
             {
                 Koltuk eskiKoltuk = (Koltuk)_lastClickedButton.Tag;
@@ -102,15 +98,15 @@ namespace TicketReservation.UI.UserUI
                 }
             }
 
-            // 2. Yeni seçimi işaretle (Yeşil)
+            // 2. Yeni secimi isaretle
             _lastClickedButton = clickedBtn;
             clickedBtn.FillColor = Color.FromArgb(46, 204, 113); // Yeşil
             clickedBtn.ForeColor = Color.White;
 
-            // 3. Verileri Güncelle
+            // 3. Verileri guncelle
             SelectedSeatNumber = koltuk.KoltukNo;
 
-            // Fiyat Hesaplama: Business ise 1.5 katı
+            // Fiyat Hesaplama: Business ise 1.5 kati
             decimal multiplier = koltuk.IsBusiness ? 1.5m : 1.0m;
             FinalPrice = _basePrice * multiplier;
 
@@ -119,14 +115,14 @@ namespace TicketReservation.UI.UserUI
             lblSeatInfo.Text = $"Seçilen: Koltuk {SelectedSeatNumber} ({type})";
             lblTotalPrice.Text = $"{FinalPrice:C2}";
 
-            // 5. Onay Butonunu Aç
+            // 5. Onay Butonunu Ac
             btnConfirm.Enabled = true;
             btnConfirm.FillColor = Color.FromArgb(100, 88, 255); // Guna Moru (Aktif)
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            // Kullanıcıya son bir soru
+
             DialogResult dr = MessageBox.Show(
                 $"Koltuk: {SelectedSeatNumber}\nTutar: {FinalPrice:C2}\n\nOnaylıyor musunuz?",
                 "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
