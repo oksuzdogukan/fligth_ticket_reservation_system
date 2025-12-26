@@ -55,8 +55,8 @@ namespace TicketReservation.Data.Concrete
 
                     // Koltuk ekleme dongusu
 
-                    string koltukEkleQuery = "INSERT INTO Koltuklar (UcusNo, KoltukNo, DoluMu) " +
-                                         "VALUES (@ucusNo, @koltukNo, @doluMu)";
+                    string koltukEkleQuery = "INSERT INTO Koltuklar (UcusNo, KoltukNo, DoluMu, IsBusiness) " +
+                                         "VALUES (@ucusNo, @koltukNo, @doluMu, @isBusiness)";
                     for (int i=1; i<=ucakKapasitesi; i++)
                     {
                         using(SqlCommand cmdKoltuk = new SqlCommand(koltukEkleQuery, conn, transaction))
@@ -64,6 +64,10 @@ namespace TicketReservation.Data.Concrete
                             cmdKoltuk.Parameters.AddWithValue("@ucusNo", yeniUcusId);
                             cmdKoltuk.Parameters.AddWithValue("@koltukNo", i);
                             cmdKoltuk.Parameters.AddWithValue("@doluMu", false); // Bos
+
+                            // ilk 6 koltuk business olsun
+                            bool isBusiness = (i <= 6);
+                            cmdKoltuk.Parameters.AddWithValue("@isBusiness", isBusiness);
 
                             cmdKoltuk.ExecuteNonQuery();
                         }

@@ -115,10 +115,6 @@ namespace TicketReservation.Business.Concrete
             {
                 sonFiyat += temelFiyat * 0.30m; // Son 3 gün kala %30 zam
             }
-            else if (kalanSure.TotalDays > 30)
-            {
-                sonFiyat -= temelFiyat * 0.10m; // 30 günden fazla varsa %10 indirim
-            }
 
             // 3. KURAL: HAFTA SONU UÇUŞU (Pazar günü daha pahalı olsun)
             if (ucus.Tarih.DayOfWeek == DayOfWeek.Sunday)
