@@ -21,6 +21,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 
+            this.btnPickSeat = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.panelLeft = new Guna.UI2.WinForms.Guna2Panel();
             this.labelBrand = new System.Windows.Forms.Label();
@@ -44,6 +45,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvFlights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKoltuklar)).BeginInit();
             this.SuspendLayout();
+
+            // 
+            // btnPickSeat (KOLTUK SEÇ BUTONU)
+            // 
+            this.btnPickSeat.BorderRadius = 10;
+            this.btnPickSeat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnPickSeat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnPickSeat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPickSeat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnPickSeat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnPickSeat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnPickSeat.ForeColor = System.Drawing.Color.White;
+            this.btnPickSeat.Location = new System.Drawing.Point(300, 485);
+            this.btnPickSeat.Name = "btnPickSeat";
+            this.btnPickSeat.Size = new System.Drawing.Size(220, 50);
+            this.btnPickSeat.TabIndex = 10;
+            this.btnPickSeat.Text = "KOLTUK SEÇ";
+            this.btnPickSeat.Click += new System.EventHandler(this.btnPickSeat_Click);
 
             // guna2Elipse1
             this.guna2Elipse1.TargetControl = this;
@@ -185,7 +204,7 @@
             this.dgvFlights.ThemeStyle.RowsStyle.Height = 22;
             this.dgvFlights.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
             this.dgvFlights.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
-            this.dgvFlights.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFlights_CellMouseClick);
+            //this.dgvFlights.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFlights_CellMouseClick);
 
             // labelKoltuklar
             this.labelKoltuklar.AutoSize = true;
@@ -220,8 +239,8 @@
             this.dgvKoltuklar.RowHeadersVisible = false;
             this.dgvKoltuklar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvKoltuklar.Size = new System.Drawing.Size(350, 200);
-            this.dgvKoltuklar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKoltuklar_CellFormatting);
-            this.dgvKoltuklar.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKoltuklar_CellMouseClick);
+            //this.dgvKoltuklar.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKoltuklar_CellFormatting);
+            //this.dgvKoltuklar.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKoltuklar_CellMouseClick);
 
             // btnRezervasyonYap
             // 
@@ -239,6 +258,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1200, 600);
+            this.Controls.Add(this.btnPickSeat);
             this.Controls.Add(this.btnRezervasyonYap);
             this.Controls.Add(this.dgvKoltuklar);
             this.Controls.Add(this.labelKoltuklar);
@@ -263,6 +283,7 @@
 
         #endregion
 
+        private Guna.UI2.WinForms.Guna2Button btnPickSeat;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2Panel panelLeft;
         private Guna.UI2.WinForms.Guna2Panel panelTop;

@@ -139,7 +139,8 @@
             this.flowSeatPanel.Name = "flowSeatPanel";
             this.flowSeatPanel.Size = new System.Drawing.Size(500, 500);
             this.flowSeatPanel.TabIndex = 2;
-
+            this.flowSeatPanel.WrapContents = true;
+            
             // 
             // panelBottom
             // 

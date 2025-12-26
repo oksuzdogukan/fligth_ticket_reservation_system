@@ -3,7 +3,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TicketReservation.Business.Abstract;
+using TicketReservation.Business.Concrete;
 using TicketReservation.Models;
+using TicketReservation.UI.UserUI;
 
 namespace TicketReservation.UI
 {
@@ -63,58 +65,125 @@ namespace TicketReservation.UI
             if (dgvFlights.Columns["TemelFiyat"] != null) dgvFlights.Columns["TemelFiyat"].Visible = false;
         }
 
-        private void dgvFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void btnPickSeat_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            // 1. Grid'den bir uçuş seçilmiş mi kontrol et
+            if (dgvFlights.SelectedRows.Count == 0)
             {
-                _secilenUcusId = Convert.ToInt32(dgvFlights.Rows[e.RowIndex].Cells["UcusId"].Value);
+                MessageBox.Show("Lütfen önce listeden bir uçuş seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                var koltukListesi = _koltukService.GetByUcusId(_secilenUcusId);
-                dgvKoltuklar.DataSource = koltukListesi;
+            try
+            {
+                // 2. Seçili satırdan UcusNo ve TemelFiyat'ı al
+                // Not: Grid sütun isimlerin UcusNo ve TemelFiyat olmalı
+                int ucusNo = Convert.ToInt32(dgvFlights.SelectedRows[0].Cells["UcusId"].Value);
+                decimal temelFiyat = Convert.ToDecimal(dgvFlights.SelectedRows[0].Cells["TemelFiyat"].Value);
 
-                if (dgvKoltuklar.Columns["KoltukId"] != null) dgvKoltuklar.Columns["KoltukId"].Visible = false;
-                if (dgvKoltuklar.Columns["UcusId"] != null) dgvKoltuklar.Columns["UcusId"].Visible = false;
+                // 3. O uçuşun koltuklarını veritabanından çek
+                var koltuklar = _rezervasyonService.KoltuklariGetir(ucusNo);
+
+                // 4. Görsel Koltuk Seçim Formunu (FrmSeatSelection) aç
+                using (var frmSeat = new FrmSeatSelection(koltuklar, temelFiyat))
+                {
+                    frmSeat.ShowDialog(); // Formu modal olarak aç (seçim yapana kadar bekler)
+
+                    // 5. Kullanıcı "Onayla" dediyse işlemi bitir
+                    if (frmSeat.IsConfirmed)
+                    {
+                        int secilenKoltuk = frmSeat.SelectedSeatNumber;
+                        decimal sonFiyat = frmSeat.FinalPrice; // Business farkı dahil fiyat
+
+                        // 6. Rezervasyonu veritabanına kaydet
+                        RezervasyonuBitir(ucusNo, secilenKoltuk, sonFiyat);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata oluştu: " + ex.Message);
             }
         }
 
-        private void dgvKoltuklar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void RezervasyonuBitir(int ucusNo, int koltukNo, decimal fiyat)
         {
-            if (dgvKoltuklar.Columns[e.ColumnIndex].Name == "DoluMu" && e.Value != null)
+            var yeniRez = new Rezervasyon
             {
-                bool doluMu = (bool)e.Value;
-                DataGridViewRow row = dgvKoltuklar.Rows[e.RowIndex];
+                MusteriId = _musteri.Id,
+                UcusId = ucusNo,
+                KoltukNo = koltukNo,
+                RezervasyonTarihi = DateTime.Now,
+                Fiyat = fiyat,
+                Durum = Models.Enums.RezervasyonDurumu.Aktif
+            };
 
-                if (doluMu)
-                {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(231, 76, 60); // Kırmızı
-                    row.DefaultCellStyle.ForeColor = Color.White;
-                    row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(231, 76, 60);
-                }
-                else
-                {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // Yeşil
-                    row.DefaultCellStyle.ForeColor = Color.White;
-                    row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 174, 96);
-                }
+            if (_rezervasyonService.RezervasyonYap(yeniRez))
+            {
+                MessageBox.Show($"Rezervasyonunuz Başarıyla Tamamlandı!\nKoltuk: {koltukNo}\nToplam Tutar: {fiyat:C2}",
+                                "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Listeyi yenile (Koltuk dolduğu için güncelleme gerekebilir)
+                // btnSearch_Click(null, null); 
+            }
+            else
+            {
+                MessageBox.Show("Rezervasyon yapılamadı! Koltuk dolmuş olabilir.");
             }
         }
 
-        private void dgvKoltuklar_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                bool doluMu = Convert.ToBoolean(dgvKoltuklar.Rows[e.RowIndex].Cells["DoluMu"].Value);
-                if (doluMu)
-                {
-                    MessageBox.Show("Bu koltuk dolu, lütfen başka bir koltuk seçiniz.");
-                    _secilenKoltukNo = 0;
-                }
-                else
-                {
-                    _secilenKoltukNo = Convert.ToInt32(dgvKoltuklar.Rows[e.RowIndex].Cells["KoltukNo"].Value);
-                }
-            }
-        }
+        //private void dgvFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0)
+        //    {
+        //        _secilenUcusId = Convert.ToInt32(dgvFlights.Rows[e.RowIndex].Cells["UcusId"].Value);
+
+        //        var koltukListesi = _koltukService.GetByUcusId(_secilenUcusId);
+        //        dgvKoltuklar.DataSource = koltukListesi;
+
+        //        if (dgvKoltuklar.Columns["KoltukId"] != null) dgvKoltuklar.Columns["KoltukId"].Visible = false;
+        //        if (dgvKoltuklar.Columns["UcusId"] != null) dgvKoltuklar.Columns["UcusId"].Visible = false;
+        //    }
+        //}
+
+        //private void dgvKoltuklar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    if (dgvKoltuklar.Columns[e.ColumnIndex].Name == "DoluMu" && e.Value != null)
+        //    {
+        //        bool doluMu = (bool)e.Value;
+        //        DataGridViewRow row = dgvKoltuklar.Rows[e.RowIndex];
+
+        //        if (doluMu)
+        //        {
+        //            row.DefaultCellStyle.BackColor = Color.FromArgb(231, 76, 60); // Kırmızı
+        //            row.DefaultCellStyle.ForeColor = Color.White;
+        //            row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(231, 76, 60);
+        //        }
+        //        else
+        //        {
+        //            row.DefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // Yeşil
+        //            row.DefaultCellStyle.ForeColor = Color.White;
+        //            row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 174, 96);
+        //        }
+        //    }
+        //}
+
+        //private void dgvKoltuklar_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0)
+        //    {
+        //        bool doluMu = Convert.ToBoolean(dgvKoltuklar.Rows[e.RowIndex].Cells["DoluMu"].Value);
+        //        if (doluMu)
+        //        {
+        //            MessageBox.Show("Bu koltuk dolu, lütfen başka bir koltuk seçiniz.");
+        //            _secilenKoltukNo = 0;
+        //        }
+        //        else
+        //        {
+        //            _secilenKoltukNo = Convert.ToInt32(dgvKoltuklar.Rows[e.RowIndex].Cells["KoltukNo"].Value);
+        //        }
+        //    }
+        //}
 
         private void btnRezervasyonYap_Click(object sender, EventArgs e)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TicketReservation.Models;
-using Guna.UI2.WinForms; // Guna UI Kütüphanesi
+using Guna.UI2.WinForms; 
 
 namespace TicketReservation.UI.UserUI
 {
@@ -37,51 +37,47 @@ namespace TicketReservation.UI.UserUI
         private void LoadSeats()
         {
             flowSeatPanel.Controls.Clear();
+            // Panel genişliğini sabitleyerek koltukların kaymasını engelliyoruz
+            // (50px buton + 10px margin) * 6 koltuk + 50px koridor boşluğu + scrollbar payı
+            flowSeatPanel.Width = 460;
 
             foreach (var koltuk in _koltuklar)
             {
-                // Guna Button Oluşturma (Dinamik)
                 Guna2Button btn = new Guna2Button();
                 btn.Width = 50;
                 btn.Height = 50;
-                btn.BorderRadius = 10;
-                btn.Margin = new Padding(8); // Butonlar arası boşluk
-                btn.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-                btn.ForeColor = Color.White;
+                btn.BorderRadius = 8;
                 btn.Text = koltuk.KoltukNo.ToString();
-                btn.Tag = koltuk; // Koltuk nesnesini butonun içine sakla
+                btn.Tag = koltuk;
+                btn.Font = new Font("Segoe UI", 9, FontStyle.Bold);
 
-                // Durumuna göre Renk ve Özellik Ayarı
+                // Standart Margin: Her yönden 5px
+                Padding margin = new Padding(5);
+
+                // KORİDOR MANTIĞI: Her sıranın 3. koltuğundan sonra geniş bir sağ boşluk bırak
+                // 1 2 3 [KORİDOR] 4 5 6
+                if (koltuk.KoltukNo % 6 == 3)
+                {
+                    margin.Right = 60; // Orta koridor genişliği
+                }
+
+                btn.Margin = margin;
+
+                // Renk ve Durum Ayarları (Mevcut kodunla aynı kalsın)
                 if (koltuk.DoluMu)
                 {
-                    btn.FillColor = Color.FromArgb(231, 76, 60); // Kırmızı (Dolu)
+                    btn.FillColor = Color.FromArgb(231, 76, 60);
                     btn.Enabled = false;
-                    btn.Cursor = Cursors.No;
                 }
                 else
                 {
                     btn.Cursor = Cursors.Hand;
-                    btn.Click += Seat_Click; // Tıklama Olayı
-
-                    if (koltuk.IsBusiness)
-                    {
-                        btn.FillColor = Color.Gold; // Business
-                        btn.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        btn.FillColor = Color.FromArgb(94, 148, 255); // Ekonomi (Guna Mavisi)
-                    }
+                    btn.FillColor = koltuk.IsBusiness ? Color.Gold : Color.FromArgb(94, 148, 255);
+                    btn.ForeColor = koltuk.IsBusiness ? Color.Black : Color.White;
+                    btn.Click += Seat_Click;
                 }
 
                 flowSeatPanel.Controls.Add(btn);
-
-                // Koridor Boşluğu (Görsel Düzenleme)
-                // Her 2 koltukta bir, eğer satır sonu değilse (4) boşluk bırak
-                if (koltuk.KoltukNo % 2 == 0 && koltuk.KoltukNo % 4 != 0)
-                {
-                    btn.Margin = new Padding(8, 8, 60, 8); // Sağdan ekstra boşluk
-                }
             }
         }
 
