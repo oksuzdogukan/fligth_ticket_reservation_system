@@ -14,5 +14,10 @@ namespace TicketReservation.Models
         public bool DoluMu { get; set; }
 
         public bool IsBusiness { get; set; }
+
+        public override string ToString()
+        {
+            return $"Koltuk No: {KoltukNo} ({DoluMu})";
+        }
     }
 }
