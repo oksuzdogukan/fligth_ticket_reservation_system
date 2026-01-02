@@ -132,59 +132,7 @@ namespace TicketReservation.UI
             }
         }
 
-        //private void dgvFlights_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-        //    if (e.RowIndex >= 0)
-        //    {
-        //        _secilenUcusId = Convert.ToInt32(dgvFlights.Rows[e.RowIndex].Cells["UcusId"].Value);
-
-        //        var koltukListesi = _koltukService.GetByUcusId(_secilenUcusId);
-        //        dgvKoltuklar.DataSource = koltukListesi;
-
-        //        if (dgvKoltuklar.Columns["KoltukId"] != null) dgvKoltuklar.Columns["KoltukId"].Visible = false;
-        //        if (dgvKoltuklar.Columns["UcusId"] != null) dgvKoltuklar.Columns["UcusId"].Visible = false;
-        //    }
-        //}
-
-        //private void dgvKoltuklar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        //{
-        //    if (dgvKoltuklar.Columns[e.ColumnIndex].Name == "DoluMu" && e.Value != null)
-        //    {
-        //        bool doluMu = (bool)e.Value;
-        //        DataGridViewRow row = dgvKoltuklar.Rows[e.RowIndex];
-
-        //        if (doluMu)
-        //        {
-        //            row.DefaultCellStyle.BackColor = Color.FromArgb(231, 76, 60); // Kırmızı
-        //            row.DefaultCellStyle.ForeColor = Color.White;
-        //            row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(231, 76, 60);
-        //        }
-        //        else
-        //        {
-        //            row.DefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113); // Yeşil
-        //            row.DefaultCellStyle.ForeColor = Color.White;
-        //            row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 174, 96);
-        //        }
-        //    }
-        //}
-
-        //private void dgvKoltuklar_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-        //    if (e.RowIndex >= 0)
-        //    {
-        //        bool doluMu = Convert.ToBoolean(dgvKoltuklar.Rows[e.RowIndex].Cells["DoluMu"].Value);
-        //        if (doluMu)
-        //        {
-        //            MessageBox.Show("Bu koltuk dolu, lütfen başka bir koltuk seçiniz.");
-        //            _secilenKoltukNo = 0;
-        //        }
-        //        else
-        //        {
-        //            _secilenKoltukNo = Convert.ToInt32(dgvKoltuklar.Rows[e.RowIndex].Cells["KoltukNo"].Value);
-        //        }
-        //    }
-        //}
-
+       
         private void btnRezervasyonYap_Click(object sender, EventArgs e)
         {
             try
@@ -213,7 +161,7 @@ namespace TicketReservation.UI
                 if (basarili)
                 {
                     MessageBox.Show($"Rezervasyonunuz başarıyla oluşturuldu!\nKoltuk No: {_secilenKoltukNo}");
-                    dgvKoltuklar.DataSource = _koltukService.GetByUcusId(_secilenUcusId);
+                    //dgvKoltuklar.DataSource = _koltukService.GetByUcusId(_secilenUcusId);
                     _secilenKoltukNo = 0;
                 }
                 else
