@@ -62,12 +62,11 @@ namespace TicketReservation.Business.Concrete
                 throw new Exception("Gecmis tarihli ucusa rezervasyon yapilamaz");
             }
 
-            // dinamik fiyatlandirma
-            decimal sonFiyat = DinamikFiyatHesapla(ucus, koltuklar);
-
-            rezervasyon.Fiyat = sonFiyat; // fiyati guncelle
-
-            return _rezervasyonDal.RezervasyonYap(rezervasyon);
+            // dinamik fiyat hesaplama
+            if (rezervasyon.Fiyat <= 0)
+            {
+                rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar);
+            }
 
         }
 
