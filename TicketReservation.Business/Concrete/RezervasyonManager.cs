@@ -68,6 +68,7 @@ namespace TicketReservation.Business.Concrete
                 rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar);
             }
 
+            return _rezervasyonDal.RezervasyonYap(rezervasyon);
         }
 
         public List<Rezervasyon> RezervasyonGoruntule(int musteriId)
