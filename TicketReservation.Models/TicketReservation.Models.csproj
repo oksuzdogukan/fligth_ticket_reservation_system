@@ -51,6 +51,7 @@
     <Compile Include="Enums\RezervasyonDurumu.cs" />
     <Compile Include="Koltuk.cs" />
     <Compile Include="Kullanici.cs" />
+    <Compile Include="Kupon.cs" />
     <Compile Include="Musteri.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rezervasyon.cs" />

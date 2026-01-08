@@ -16,13 +16,15 @@ namespace TicketReservation.Business.Concrete
         private readonly IRezervasyonDal _rezervasyonDal; // field ornekle
         private readonly IKoltukDal _koltukDal; // koltuklari almak icin
         private readonly IUcusDal _ucusDal; // ucusu kontrol etmek icin
+        private readonly IKuponDal _kuponDal;
         
 
-        public RezervasyonManager(IRezervasyonDal rezervasyonDal, IKoltukDal koltukDal, IUcusDal ucusDal)
+        public RezervasyonManager(IRezervasyonDal rezervasyonDal, IKoltukDal koltukDal, IUcusDal ucusDal, IKuponDal kuponDal)
         {
             _rezervasyonDal = rezervasyonDal;
             _koltukDal = koltukDal;
             _ucusDal = ucusDal;
+            _kuponDal = kuponDal;
         }
 
         public List<Koltuk> KoltuklariGetir(int ucusId)
@@ -64,7 +66,7 @@ namespace TicketReservation.Business.Concrete
             }
 
             bool isBusiness = secilenKoltuk.IsBusiness;
-            rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar, secilenKoltuk.IsBusiness);
+            //rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar, secilenKoltuk.IsBusiness);
 
             return _rezervasyonDal.RezervasyonYap(rezervasyon);
         }
@@ -90,7 +92,7 @@ namespace TicketReservation.Business.Concrete
             return bulunanUcuslar;
         }
 
-        public decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar, bool isBusiness = false)
+        public decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar, bool isBusiness = false, string kuponKodu = null)
         {
             decimal temelFiyat = ucus.TemelFiyat;
             decimal sonFiyat = temelFiyat;
@@ -132,6 +134,16 @@ namespace TicketReservation.Business.Concrete
             {
                 sonFiyat *= 1.5m;
             }
+            // 6.KURAL: KUPON INDIRIMI
+            if (!string.IsNullOrEmpty(kuponKodu))
+            {
+                var kupon = _kuponDal.KuponGetir(kuponKodu);
+                if(kupon != null)
+                {
+                    sonFiyat -= sonFiyat * kupon.IndirimOrani;
+
+                }
+            }
 
             return Math.Round(sonFiyat, 2);
         }
@@ -139,6 +151,16 @@ namespace TicketReservation.Business.Concrete
         public decimal KoltukFiyatiHesapla(decimal temelFiyat, bool isBusiness)
         {
             return isBusiness ? temelFiyat *= 1.5m : temelFiyat; 
+        }
+
+        public decimal KuponIndirimiHesapla(string kuponKodu, decimal guncelFiyat)
+        {
+            var kupon = _kuponDal.KuponGetir(kuponKodu);
+            if (kupon != null)
+            {
+                return guncelFiyat - (guncelFiyat * kupon.IndirimOrani);
+            }
+            return guncelFiyat;
         }
 
         // raporlama

@@ -31,6 +31,8 @@
             this.lblTotalPrice = new System.Windows.Forms.Label();
             this.lblSeatInfo = new System.Windows.Forms.Label();
             this.btnConfirm = new Guna.UI2.WinForms.Guna2Button();
+            this.txtKupon = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnKuponUygula = new Guna.UI2.WinForms.Guna2Button();
             this.panelTop.SuspendLayout();
             this.panelLegend.SuspendLayout();
             this.panelBottom.SuspendLayout();
@@ -78,7 +80,7 @@
             this.btnClose.TabIndex = 0;
 
             // 
-            // panelLegend (Bilgi Çubuğu)
+            // panelLegend
             // 
             this.panelLegend.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelLegend.Controls.Add(this.labelLegend4);
@@ -95,7 +97,7 @@
             this.panelLegend.Size = new System.Drawing.Size(500, 40);
             this.panelLegend.TabIndex = 1;
 
-            // Legend Items (Renk kutucukları)
+            // Renk Kutuları (Legend)
             this.boxBusiness.BackColor = System.Drawing.Color.Gold;
             this.boxBusiness.Location = new System.Drawing.Point(20, 12);
             this.boxBusiness.Size = new System.Drawing.Size(15, 15);
@@ -135,12 +137,51 @@
             this.flowSeatPanel.BackColor = System.Drawing.Color.White;
             this.flowSeatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowSeatPanel.Location = new System.Drawing.Point(0, 100);
-            this.flowSeatPanel.Padding = new System.Windows.Forms.Padding(35, 20, 0, 20); // Ortalama
+            this.flowSeatPanel.Padding = new System.Windows.Forms.Padding(35, 20, 0, 20);
             this.flowSeatPanel.Name = "flowSeatPanel";
             this.flowSeatPanel.Size = new System.Drawing.Size(500, 500);
             this.flowSeatPanel.TabIndex = 2;
             this.flowSeatPanel.WrapContents = true;
-            
+
+            // 
+            // txtKupon
+            // 
+            this.txtKupon.BorderRadius = 10;
+            this.txtKupon.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtKupon.DefaultText = "";
+            this.txtKupon.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtKupon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtKupon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtKupon.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtKupon.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtKupon.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtKupon.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtKupon.Location = new System.Drawing.Point(140, 35);
+            this.txtKupon.Name = "txtKupon";
+            this.txtKupon.PasswordChar = '\0';
+            this.txtKupon.PlaceholderText = "Kupon Kodu";
+            this.txtKupon.SelectedText = "";
+            this.txtKupon.Size = new System.Drawing.Size(100, 36);
+            this.txtKupon.TabIndex = 3;
+
+            // 
+            // btnKuponUygula
+            // 
+            this.btnKuponUygula.BorderRadius = 10;
+            this.btnKuponUygula.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnKuponUygula.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnKuponUygula.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnKuponUygula.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnKuponUygula.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnKuponUygula.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnKuponUygula.ForeColor = System.Drawing.Color.White;
+            this.btnKuponUygula.Location = new System.Drawing.Point(245, 35);
+            this.btnKuponUygula.Name = "btnKuponUygula";
+            this.btnKuponUygula.Size = new System.Drawing.Size(65, 36);
+            this.btnKuponUygula.TabIndex = 4;
+            this.btnKuponUygula.Text = "Ekle";
+            this.btnKuponUygula.Click += new System.EventHandler(this.btnKuponUygula_Click);
+
             // 
             // panelBottom
             // 
@@ -148,6 +189,8 @@
             this.panelBottom.Controls.Add(this.btnConfirm);
             this.panelBottom.Controls.Add(this.lblTotalPrice);
             this.panelBottom.Controls.Add(this.lblSeatInfo);
+            this.panelBottom.Controls.Add(this.txtKupon);
+            this.panelBottom.Controls.Add(this.btnKuponUygula);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Location = new System.Drawing.Point(0, 600);
             this.panelBottom.Name = "panelBottom";
@@ -190,7 +233,7 @@
             this.btnConfirm.Size = new System.Drawing.Size(150, 45);
             this.btnConfirm.TabIndex = 2;
             this.btnConfirm.Text = "ONAYLA";
-            this.btnConfirm.Enabled = false; // Başta pasif
+            this.btnConfirm.Enabled = false;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
 
             // 
@@ -234,5 +277,7 @@
         private System.Windows.Forms.Label lblTotalPrice;
         private System.Windows.Forms.Label lblSeatInfo;
         private Guna.UI2.WinForms.Guna2Button btnConfirm;
+        private Guna.UI2.WinForms.Guna2TextBox txtKupon;
+        private Guna.UI2.WinForms.Guna2Button btnKuponUygula;
     }
 }

@@ -22,7 +22,8 @@ namespace TicketReservation.UI
             var rezervasyonDal = new RezervasyonDal();
             var koltukDal = new KoltukDal();
             var ucusDal = new UcusDal();
-            _rezervasyonManager = new RezervasyonManager(rezervasyonDal, koltukDal, ucusDal);
+            var kuponDal = new KuponDal();
+            _rezervasyonManager = new RezervasyonManager(rezervasyonDal, koltukDal, ucusDal, kuponDal);
 
             _musteri = musteri;
         }

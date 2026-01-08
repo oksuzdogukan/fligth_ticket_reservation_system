@@ -29,7 +29,8 @@ namespace TicketReservation.UI
             var rezDal = new RezervasyonDal();
             var koltukDal = new KoltukDal();
             var ucusDal = new UcusDal();
-            var rezManager = new RezervasyonManager(rezDal, koltukDal, ucusDal);
+            var kuponDal = new KuponDal();
+            var rezManager = new RezervasyonManager(rezDal, koltukDal, ucusDal, kuponDal);
 
             FrmReports reportForm = new FrmReports(rezManager);
             reportForm.ShowDialog();

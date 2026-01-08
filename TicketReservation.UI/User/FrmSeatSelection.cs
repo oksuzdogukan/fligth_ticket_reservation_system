@@ -10,6 +10,8 @@ namespace TicketReservation.UI.UserUI
 {
     public partial class FrmSeatSelection : Form
     {
+        private string _uygulananKupon = null;
+
         // Propertyler
         public int SelectedSeatNumber { get; private set; } = 0;
         public decimal FinalPrice { get; private set; } = 0;
@@ -113,6 +115,13 @@ namespace TicketReservation.UI.UserUI
             //decimal multiplier = koltuk.IsBusiness ? 1.5m : 1.0m;
             //FinalPrice = _basePrice * multiplier;
 
+            // kuponu resetle
+            _uygulananKupon = null;
+            txtKupon.Enabled = true;
+            btnKuponUygula.Enabled = true;
+            btnKuponUygula.Text = "Ekle";
+            txtKupon.Text = "";
+
             FinalPrice = _rezervasyonService.KoltukFiyatiHesapla(_basePrice, koltuk.IsBusiness);
 
             // 4. UI Bilgilendirme
@@ -136,6 +145,64 @@ namespace TicketReservation.UI.UserUI
             {
                 IsConfirmed = true;
                 this.Close();
+            }
+        }
+
+        private void btnKuponUygula_Click(object sender, EventArgs e)
+        {
+            string kod = txtKupon.Text.Trim();
+
+            // 1. Boş kontrolü
+            if (string.IsNullOrEmpty(kod))
+            {
+                MessageBox.Show("Lütfen bir kupon kodu giriniz.");
+                return;
+            }
+
+            // 2. Zaten uygulanmış mı?
+            if (_uygulananKupon == kod)
+            {
+                MessageBox.Show("Bu kupon zaten uygulandı.");
+                return;
+            }
+
+            // 3. Koltuk seçili mi?
+            if (FinalPrice == 0)
+            {
+                MessageBox.Show("Lütfen önce bir koltuk seçiniz.");
+                return;
+            }
+
+            try
+            {
+                // 4. Manager üzerinden indirim hesapla
+                // NOT: Eğer IRezervasyonService'e KuponIndirimiHesapla metodunu eklemediysen
+                // önceki cevabımdaki gibi Interface ve Manager'ı güncellemelisin.
+                decimal indirimliFiyat = _rezervasyonService.KuponIndirimiHesapla(kod, FinalPrice);
+
+                if (indirimliFiyat < FinalPrice)
+                {
+                    // İndirim başarılı
+                    FinalPrice = indirimliFiyat;
+                    _uygulananKupon = kod;
+
+                    // UI Güncelle
+                    lblTotalPrice.Text = $"{FinalPrice:C2}";
+                    MessageBox.Show("Kupon başarıyla uygulandı!", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Görsel olarak kilitliyoruz ki değiştirilmesin (isteğe bağlı)
+                    txtKupon.Enabled = false;
+                    btnKuponUygula.Enabled = false;
+                    btnKuponUygula.Text = "OK";
+                }
+                else
+                {
+                    MessageBox.Show("Geçersiz veya süresi dolmuş kupon kodu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
             }
         }
     }

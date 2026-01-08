@@ -29,9 +29,10 @@ namespace TicketReservation.UI
             var rezervasyonDal = new RezervasyonDal();
             var ucusDal = new UcusDal();
             var koltukDal = new KoltukDal();
+            var kuponDal = new KuponDal();
 
             var ucusManager = new UcusManager(ucusDal, rezervasyonDal);
-            var rezervasyonManager = new RezervasyonManager(rezervasyonDal, koltukDal, ucusDal);
+            var rezervasyonManager = new RezervasyonManager(rezervasyonDal, koltukDal, ucusDal, kuponDal);
             var koltukManager = new KoltukManager(koltukDal);
 
             FrmSearchFlight searchForm = new FrmSearchFlight(ucusManager, rezervasyonManager, koltukManager, _girisYapanMusteri);

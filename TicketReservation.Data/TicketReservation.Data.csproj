@@ -49,11 +49,13 @@
   <ItemGroup>
     <Compile Include="Concrete\KoltukDal.cs" />
     <Compile Include="Concrete\KullaniciDal.cs" />
+    <Compile Include="Concrete\KuponDal.cs" />
     <Compile Include="Concrete\RezervasyonDal.cs" />
     <Compile Include="Concrete\UcusDal.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Interfaces\IKoltukDal.cs" />
     <Compile Include="Interfaces\IKullaniciDal.cs" />
+    <Compile Include="Interfaces\IKuponDal.cs" />
     <Compile Include="Interfaces\IRezervasyonDal.cs" />
     <Compile Include="Interfaces\IUcusDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
