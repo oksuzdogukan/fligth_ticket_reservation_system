@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TicketReservation.Models;
-using Guna.UI2.WinForms; 
+using Guna.UI2.WinForms;
+using TicketReservation.Business.Abstract;
 
 namespace TicketReservation.UI.UserUI
 {
@@ -18,12 +19,14 @@ namespace TicketReservation.UI.UserUI
         private readonly List<Koltuk> _koltuklar;
         private readonly decimal _basePrice;
         private Guna2Button _lastClickedButton = null;
+        private readonly IRezervasyonService _rezervasyonService;
 
-        public FrmSeatSelection(List<Koltuk> koltuklar, decimal basePrice)
+        public FrmSeatSelection(List<Koltuk> koltuklar, decimal basePrice, IRezervasyonService rezervasyonService)
         {
             InitializeComponent();
             _koltuklar = koltuklar;
             _basePrice = basePrice;
+            _rezervasyonService = rezervasyonService;
 
             LoadSeats();
             UpdatePriceLabel();
@@ -106,9 +109,11 @@ namespace TicketReservation.UI.UserUI
             // 3. Verileri guncelle
             SelectedSeatNumber = koltuk.KoltukNo;
 
-            // Fiyat Hesaplama: Business ise 1.5 kati
-            decimal multiplier = koltuk.IsBusiness ? 1.5m : 1.0m;
-            FinalPrice = _basePrice * multiplier;
+            //// Fiyat Hesaplama: Business ise 1.5 kati
+            //decimal multiplier = koltuk.IsBusiness ? 1.5m : 1.0m;
+            //FinalPrice = _basePrice * multiplier;
+
+            FinalPrice = _rezervasyonService.KoltukFiyatiHesapla(_basePrice, koltuk.IsBusiness);
 
             // 4. UI Bilgilendirme
             string type = koltuk.IsBusiness ? "Business" : "Ekonomi";

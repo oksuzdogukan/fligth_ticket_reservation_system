@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,11 +63,8 @@ namespace TicketReservation.Business.Concrete
                 throw new Exception("Gecmis tarihli ucusa rezervasyon yapilamaz");
             }
 
-            // dinamik fiyat hesaplama
-            if (rezervasyon.Fiyat <= 0)
-            {
-                rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar);
-            }
+            bool isBusiness = secilenKoltuk.IsBusiness;
+            rezervasyon.Fiyat = DinamikFiyatHesapla(ucus, koltuklar, secilenKoltuk.IsBusiness);
 
             return _rezervasyonDal.RezervasyonYap(rezervasyon);
         }
@@ -92,7 +90,7 @@ namespace TicketReservation.Business.Concrete
             return bulunanUcuslar;
         }
 
-        private decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar)
+        public decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar, bool isBusiness = false)
         {
             decimal temelFiyat = ucus.TemelFiyat;
             decimal sonFiyat = temelFiyat;
@@ -116,13 +114,31 @@ namespace TicketReservation.Business.Concrete
                 sonFiyat += temelFiyat * 0.30m; // Son 3 gün kala %30 zam
             }
 
-            // 3. KURAL: HAFTA SONU UÇUŞU (Pazar günü daha pahalı olsun)
+            // 3. KURAL: HAFTA SONU UÇUŞU (Pazar günü daha pahalı)
             if (ucus.Tarih.DayOfWeek == DayOfWeek.Sunday)
             {
                 sonFiyat += temelFiyat * 0.15m;
             }
 
+            // 4. KURAL: DONEME GORE (HAZIRAN TEMMUZ AGUSTOS ta %20 zam)
+            int ay = ucus.Tarih.Month;
+            if(ay == 6 || ay==7 || ay == 8)
+            {
+                sonFiyat += temelFiyat * 0.20m;
+            }
+
+            //5. Kural: Business koltuk
+            if (isBusiness)
+            {
+                sonFiyat *= 1.5m;
+            }
+
             return Math.Round(sonFiyat, 2);
+        }
+
+        public decimal KoltukFiyatiHesapla(decimal temelFiyat, bool isBusiness)
+        {
+            return isBusiness ? temelFiyat *= 1.5m : temelFiyat; 
         }
 
         // raporlama

@@ -20,17 +20,6 @@ namespace TicketReservation.UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //var rezervasyonDal = new RezervasyonDal();
-            //var ucusDal = new UcusDal();
-            //var koltukDal = new KoltukDal();
-
-            //var ucusManager = new UcusManager(ucusDal, rezervasyonDal);
-            //var rezervasyonManager = new RezervasyonManager(rezervasyonDal, koltukDal, ucusDal);
-            //var koltukManager = new KoltukManager(koltukDal);
-
-
-            //Application.Run(new FrmFlights(ucusManager));
-            //Application.Run(new FrmSearchFlight(ucusManager, rezervasyonManager, koltukManager));
 
             Application.Run(new FrmLogin());  
         }

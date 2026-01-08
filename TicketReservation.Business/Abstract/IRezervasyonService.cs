@@ -19,6 +19,9 @@ namespace TicketReservation.Business.Abstract
 
         List<Rezervasyon> RezervasyonGoruntule(int musteriId);
 
+        decimal DinamikFiyatHesapla(Ucus ucus, List<Koltuk> koltuklar, bool isBusiness=false);
+        decimal KoltukFiyatiHesapla(decimal temelFiyat, bool isBusiness);
+
         // raporlama
         Dictionary<string, object> RaporGetir();
 

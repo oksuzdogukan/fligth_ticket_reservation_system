@@ -83,9 +83,10 @@ namespace TicketReservation.UI
 
                 // 3. O uçuşun koltuklarını veritabanından çek
                 var koltuklar = _rezervasyonService.KoltuklariGetir(ucusNo);
+                
 
                 // 4. Görsel Koltuk Seçim Formunu (FrmSeatSelection) aç
-                using (var frmSeat = new FrmSeatSelection(koltuklar, temelFiyat))
+                using (var frmSeat = new FrmSeatSelection(koltuklar, temelFiyat, _rezervasyonService))
                 {
                     frmSeat.ShowDialog(); // Formu modal olarak aç (seçim yapana kadar bekler)
 
